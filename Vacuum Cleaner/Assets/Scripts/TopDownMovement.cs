@@ -27,7 +27,7 @@ public class TopDownMovement : MonoBehaviour
 
     private Vector3 calculateMovement()
     {
-        Debug.Log("Movement input = " + movementInput.x + " : " + movementInput.y);
+        //Debug.Log("Movement input = " + movementInput.x + " : " + movementInput.y);
         //not normalized movement
         Vector3 forwardMove = transform.forward * movementInput.y;
         Vector3 sideMove = transform.right * movementInput.x;

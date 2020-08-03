@@ -8,7 +8,7 @@ public class CordBehaviour : MonoBehaviour
     //public float hookVelocity;
     bool isHooked = false;
     Rigidbody rb;
-    GameObject hookBase;
+    public GameObject cordBase;
     ConfigurableJoint joint;
     public float maxLength;
     public float minLength;
@@ -28,23 +28,26 @@ public class CordBehaviour : MonoBehaviour
     bool prevPointBlocked;
     float remainingLength;
 
-    //Reel Rope
-    public float reelSpeed;
-    public float quickReelMultiplier;
-
     // Start is called before the first frame update
     void Start()
     {
         CurrentLength = maxLength;
 
         rb = GetComponent<Rigidbody>();
-        hookBase = GameObject.Find("Hook Base");
 
         joint = GetComponentInParent<ConfigurableJoint>();
         //initialPos = joint.connectedAnchor;
         ResetHook();
 
-        layerMask = ~LayerMask.GetMask("Car"); //set layerMask to exclude Car layer
+        layerMask = LayerMask.GetMask("Default"); //set layerMask to exclude Car layer
+    }
+
+    void Update()
+    {
+        if (isHooked)
+        {
+            RopeBendingCheck();
+        }
     }
 
     public bool GetIsHooked()
@@ -52,14 +55,21 @@ public class CordBehaviour : MonoBehaviour
         return isHooked;
     }
 
+    public bool GetRopeBent()
+    {
+        if (rp.Count >1)
+            return true;
+        return false;
+    }
+
     public void RopeBendingCheck()
     {
-        //Debug.Log("ropePoints " + rp.Count);
+        Debug.Log("ropePoints " + rp.Count);
         Vector3 newPoint = rp[rp.Count - 1].transform.position;
-        Vector3 base2NewPoint = newPoint - hookBase.transform.position;
+        Vector3 base2NewPoint = newPoint - cordBase.transform.position;
 
         //
-        newPointBlocked = Physics.Raycast(hookBase.transform.position, base2NewPoint, out baseHit, base2NewPoint.magnitude - 1, layerMask); // giving some leeway to max distance be subtracting 1
+        newPointBlocked = Physics.Raycast(cordBase.transform.position, base2NewPoint, out baseHit, base2NewPoint.magnitude - 0.1f, layerMask); // giving some leeway to max distance be subtracting 1
         if (newPointBlocked)
         {
             newPoint = baseHit.collider.ClosestPoint(baseHit.point);
@@ -68,12 +78,12 @@ public class CordBehaviour : MonoBehaviour
 
         if (rp.Count > 1) // if the rope is bending on some surface.
         {
-            Vector3 base2PrevPoint = rp[rp.Count - 2].transform.position - hookBase.transform.position;
-            prevPointBlocked = Physics.Raycast(hookBase.transform.position, base2PrevPoint, base2PrevPoint.magnitude - 1, layerMask);
+            Vector3 base2PrevPoint = rp[rp.Count - 2].transform.position - cordBase.transform.position;
+            prevPointBlocked = Physics.Raycast(cordBase.transform.position, base2PrevPoint, base2PrevPoint.magnitude - 0.1f, layerMask);
 
             if (!prevPointBlocked)
             {
-                Vector3 nearestPoint = hookBase.transform.position + Vector3.Project(rp[rp.Count - 1].transform.position - hookBase.transform.position, base2PrevPoint);
+                Vector3 nearestPoint = cordBase.transform.position + Vector3.Project(rp[rp.Count - 1].transform.position - cordBase.transform.position, base2PrevPoint);
                 Vector3 nearestVector = rp[rp.Count - 1].transform.position - nearestPoint;
 
                 //Debug.DrawRay(nearestPoint, nearestVector, Color.blue);
@@ -143,11 +153,20 @@ public class CordBehaviour : MonoBehaviour
         }
     }
 
+    public void AttachToSocket(GameObject socket)
+    {
+        CurrentLength = maxLength; //(socket.transform.position - cordBase.transform.position).magnitude;
+        AddRopePoint(socket.transform.position, socket.transform);
+        transform.SetParent(socket.transform);
+        isHooked = true;
+    }
+
+
     public void ShootHook()
     {
         if (shotBool) //if the ray cast did hit something,
         {
-            CurrentLength = (shotHit.point - hookBase.transform.position).magnitude;
+            CurrentLength = (shotHit.point - cordBase.transform.position).magnitude;
             Debug.Log("Shot distance: " + shotHit.distance);
             AddRopePoint(shotHit.point, shotHit.transform); //move hook to hit point
             transform.SetParent(shotHit.transform); // set the object that was hit as a parent
@@ -157,38 +176,13 @@ public class CordBehaviour : MonoBehaviour
         {
             ResetHook();
         }
+        
 
-    }
-
-    public void QuickReel()
-    {
-        ReelRope(-1, quickReelMultiplier);
-        if (CurrentLength <= minLength)
-        {
-            ResetHook();
-        }
-    }
-
-    public void ReelRope(float input, float multiplier = 1)
-    {
-
-        CurrentLength += input * reelSpeed * multiplier * Time.deltaTime;
-
-        if (CurrentLength > maxLength)
-        {
-            CurrentLength = maxLength;
-        }
-        else if (CurrentLength < minLength)
-        {
-            CurrentLength = minLength;
-        }
-
-        SetRemainingLength();
     }
 
     public void ResetHook()
     {
-        transform.SetPositionAndRotation(hookBase.transform.position, hookBase.transform.rotation);
+        transform.SetPositionAndRotation(cordBase.transform.position, cordBase.transform.rotation);
         //UniversalFunctions.SetGlobalScale(transform, new Vector3(0.1f, 0.1f, 0.2f));
         rp.Clear();
         joint.linearLimit = SetLinearLimit(joint, maxLength);
