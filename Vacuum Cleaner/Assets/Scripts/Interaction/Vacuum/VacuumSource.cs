@@ -3,7 +3,8 @@ namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
     using Assets.Scripts.Test;
-    using Boo.Lang;
+    using System.Collections;
+    using System.Collections.Generic;
 
     [RequireComponent(typeof(SphereCollider))]
     public class VacuumSource : MonoBehaviour, IPower, ITester
