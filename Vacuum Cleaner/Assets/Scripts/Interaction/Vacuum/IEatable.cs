@@ -1,8 +1,10 @@
 ﻿namespace Assets.Scripts.Interaction.Vacuum
 {
+    using UnityEngine;
+
     public interface IEatable
     {
-        void Eat();
+        GameObject Eat();
         void ThrowUp();
     }
 }
