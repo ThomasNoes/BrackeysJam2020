@@ -143,12 +143,6 @@ public class CordBehaviour : MonoBehaviour
         }
     }
 
-    public void HookRayCast()
-    {
-        shotBool = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out shotHit, maxLength, layerMask);
-        HighlightCrosshair(shotBool);
-    }
-
     public void ShootHook()
     {
         if (shotBool) //if the ray cast did hit something,
