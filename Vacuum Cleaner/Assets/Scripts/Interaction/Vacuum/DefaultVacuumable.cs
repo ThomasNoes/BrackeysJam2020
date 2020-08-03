@@ -38,13 +38,13 @@
             }
         }
 
-        public void Eat()
+        public GameObject Eat()
         {
             if (!isEatable)
-                return;
+                return null;
 
             Debug.Log(gameObject + " was eaten");
-            // TODO: Needs implementation
+            return gameObject;
         }
 
         public void ThrowUp()

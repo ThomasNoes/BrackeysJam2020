@@ -127,6 +127,7 @@ MonoBehaviour:
   suckPowerLevel: 10
   effectiveAngle: 90
   maximumDistance: 15
+  eatDistance: 0.5
 --- !u!114 &1740857566550393108
 MonoBehaviour:
   m_ObjectHideFlags: 0
