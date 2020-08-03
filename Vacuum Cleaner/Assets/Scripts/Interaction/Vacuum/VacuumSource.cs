@@ -3,15 +3,19 @@ namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
     using Assets.Scripts.Test;
+    using System.Collections;
+    using System.Collections.Generic;
 
     [RequireComponent(typeof(SphereCollider))]
     public class VacuumSource : MonoBehaviour, IPower, ITester
     {
         // Public:
         public bool powered = false, isSucking = false; // NOTE: These are currently public for testing purposes
-        [Range(0.5f, 20.0f)]public float suckPowerLevel = 10.0f;
+        [Range(0.5f, 25.0f)]public float suckPowerLevel = 15.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 90.0f;
-        [Tooltip("In meters")] public float maximumDistance = 7.0f;
+        [Tooltip("In meters")] public float maximumDistance = 15.0f;
+        [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.5f;
+        public List<GameObject> eatenObjects; // Public for testing purposes, make private later
 
         // Private:
         private SphereCollider _interactionSphere;
@@ -27,6 +31,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             _layerMask = LayerMask.GetMask("UI");
             _layerMask |= LayerMask.GetMask("Ignore Raycast");
             _layerMask = ~_layerMask;
+
+            eatenObjects = new List<GameObject>();
         }
 
         private void OnTriggerStay(Collider col)
@@ -43,12 +49,29 @@ namespace Assets.Scripts.Interaction.Vacuum
         private void DoSuck(GameObject obj)
         {
             ISuckable suckable = obj.GetComponent<ISuckable>();
+            IEatable eatable = obj.GetComponent<IEatable>();
+
+            var tempDistance = Vector3.Distance(transform.position, obj.transform.position);
+
+            if (eatable != null)
+            {
+                if (tempDistance < eatDistance)
+                {
+                    GameObject tempObj = eatable.Eat();
+
+                    if (tempObj != null)
+                    {
+                        eatenObjects.Add(tempObj);
+                        tempObj.SetActive(false);
+                        return;
+                    }
+                }
+            }
 
             if (suckable != null)
             {
                 if (AngleCheck(gameObject, obj))
                 {
-                    var tempDistance = Vector3.Distance(transform.position, obj.transform.position);
                     suckable.Suck(transform.position, tempDistance * suckPowerLevel);
                 }
             }
