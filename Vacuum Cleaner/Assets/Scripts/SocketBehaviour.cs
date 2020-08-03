@@ -10,6 +10,7 @@ public class SocketBehaviour : MonoBehaviour
     bool cordAttached;
 
     CordBehaviour cb;
+    Assets.Scripts.Interaction.Vacuum.VacuumSource vs;
 
     private PlayerControls inputActions;
 
@@ -22,6 +23,7 @@ public class SocketBehaviour : MonoBehaviour
     void Start()
     {
         cb = GameObject.Find("CordHead").GetComponent<CordBehaviour>();
+        vs = GameObject.Find("vaccum head").GetComponent<Assets.Scripts.Interaction.Vacuum.VacuumSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,7 @@ public class SocketBehaviour : MonoBehaviour
             if (!cb.GetIsHooked() && inputActions.Player.Fire.triggered)
             {
                 AttachCord();
+
             }
             else if (cordAttached && !cb.GetRopeBent() && inputActions.Player.Fire.triggered)
             {
@@ -49,6 +52,8 @@ public class SocketBehaviour : MonoBehaviour
         Debug.Log("ATTACH!");
         cb.AttachToSocket(gameObject);
         cordAttached = true;
+        vs.PowerOn();
+
     }
 
     private void DetachCord()
@@ -56,6 +61,7 @@ public class SocketBehaviour : MonoBehaviour
         Debug.Log("DETACH!");
         cb.ResetHook();
         cordAttached = false;
+        vs.PowerOff();
     }
 
     private void OnTriggerEnter(Collider other)
