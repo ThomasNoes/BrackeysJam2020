@@ -6,7 +6,7 @@ public class DrawLine : MonoBehaviour
 {
     LineRenderer line;
 
-    GameObject cordBase;
+    public GameObject cordBase;
 
     List<GameObject> ropePoints;
     CordBehaviour cb;
@@ -15,14 +15,13 @@ public class DrawLine : MonoBehaviour
     {
         line = GetComponent<LineRenderer>();
         cb = GetComponent<CordBehaviour>();
-        cordBase = GameObject.Find("Hook Base");
     }
 
     // Update is called once per frame
     void Update()
     {
         ropePoints = cb.GetRopePoints();
-        Debug.Log("ropePoints: " + ropePoints.Count);
+        //Debug.Log("ropePoints: " + ropePoints.Count);
         line.positionCount = ropePoints.Count + 1;
 
         for (int i = 0; i < ropePoints.Count; i++)
