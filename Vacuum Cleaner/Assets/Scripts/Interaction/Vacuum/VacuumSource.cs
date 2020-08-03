@@ -26,6 +26,11 @@ namespace Assets.Scripts.Interaction.Vacuum
             Initiate();
         }
 
+        private void Update()
+        {
+            Debug.DrawRay(transform.position, transform.forward, Color.yellow);
+        }
+
         private void Initiate()
         {
             _interactionSphere = GetComponent<SphereCollider>();
@@ -33,7 +38,7 @@ namespace Assets.Scripts.Interaction.Vacuum
             _interactionSphere.center = transform.position;
             _interactionSphere.radius = maximumDistance;
 
-            _layerMask = LayerMask.GetMask("UI");
+            _layerMask = LayerMask.GetMask("Player");
             _layerMask |= LayerMask.GetMask("Ignore Raycast");
             _layerMask = ~_layerMask;
 

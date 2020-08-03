@@ -33,13 +33,14 @@ public class TopDownMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //transform.position += calculateMovement() * Time.fixedDeltaTime;
+
+        transform.rotation = Quaternion.LookRotation(calculateOrientation());
         rb.AddForce(calculateMovement() * Time.fixedDeltaTime, ForceMode.VelocityChange);
     }
 
     private void LateUpdate()
     {        
-        transform.LookAt(calculateOrientation());
+
     }
 
     private Vector3 calculateMovement()
@@ -58,30 +59,31 @@ public class TopDownMovement : MonoBehaviour
         Vector3 desiredLookPoint = Vector3.zero;
         if (GetCurrentControlscheme() == gamepadSchemeName)
         {
-            //Debug.Log("Using gamepad!");
-             desiredLookPoint = new Vector3(transform.position.x + lookInput.x, transform.position.y, 
-                transform.position.z + lookInput.y);
+            desiredLookPoint = new Vector3(lookInput.x, 0, lookInput.y);
+            return desiredLookPoint;
         }
-        else if(GetCurrentControlscheme() == keyboardSchemeName)
+        else if (GetCurrentControlscheme() == keyboardSchemeName)
         {
             //Debug.Log("Using keyboard and mouse!");
 
             Vector3 mousePos = inputActions.Player.MousePosition.ReadValue<Vector2>();
             Ray camRay = cam.ScreenPointToRay(mousePos);
-            
+            Debug.DrawRay(camRay.origin, camRay.direction*100, Color.blue);
+
             RaycastHit hit;
-            if(Physics.Raycast(camRay, out hit, Mathf.Infinity, groundMask))
+            if (Physics.Raycast(camRay, out hit, Mathf.Infinity, groundMask))
             {
+                Debug.Log("enter");
                 mousePos.z = hit.distance;
                 Vector3 playerToMouse = hit.point - transform.position;
-                playerToMouse.y = transform.position.y;
+                playerToMouse.y = 0;// transform.position.y;
                 desiredLookPoint = playerToMouse;
             }
             else
             {
                 mousePos.z = (cam.transform.position - transform.position).magnitude;
                 desiredLookPoint = cam.ScreenToWorldPoint(mousePos);
-                desiredLookPoint.y = transform.position.y;
+                desiredLookPoint.y = 0;// transform.position.y;
             }
         }
 
