@@ -6,44 +6,47 @@ using UnityEngine.InputSystem;
 public class TopDownMovement : MonoBehaviour
 {
     [Header("Assignables")]
-    [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private Camera cam;
     [SerializeField] private string keyboardSchemeName = "KeyboardMouse";
     [SerializeField] private string gamepadSchemeName = "Gamepad";
 
     [Header("Properties")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float lookSensitivity = 1f;
-    [SerializeField] private float rotationSmoothTime = 0.07f;
 
     [SerializeField] LayerMask groundMask;
 
+    private Camera cam;
     private PlayerControls inputActions;
     private Vector2 movementInput;
     private Vector2 lookInput;
-
-    //for smoothdamp to reference
-    private Vector3 _velocity;
+    private Rigidbody rb;
 
     private void Awake()
     {
         inputActions = new PlayerControls();
         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+
+        rb = GetComponent<Rigidbody>();
+        cam = Camera.main;
     }
 
     private void FixedUpdate()
     {
-        transform.position += calculateMovement() * Time.fixedDeltaTime;
+        //transform.position += calculateMovement() * Time.fixedDeltaTime;
+        rb.AddForce(calculateMovement() * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    }
+
+    private void LateUpdate()
+    {        
         transform.LookAt(calculateOrientation());
     }
 
     private Vector3 calculateMovement()
     {
         //not normalized movement
-        Vector3 forwardMove = transform.forward * movementInput.y;
-        Vector3 sideMove = transform.right * movementInput.x;
+        Vector3 forwardMove = Vector3.forward * movementInput.y;
+        Vector3 sideMove = Vector3.right * movementInput.x;
 
         //normalize the combined input
         Vector3 desiredMove = Vector3.Normalize(forwardMove + sideMove) * moveSpeed;
@@ -55,13 +58,13 @@ public class TopDownMovement : MonoBehaviour
         Vector3 desiredLookPoint = Vector3.zero;
         if (GetCurrentControlscheme() == gamepadSchemeName)
         {
-            Debug.Log("Using gamepad!");
+            //Debug.Log("Using gamepad!");
              desiredLookPoint = new Vector3(transform.position.x + lookInput.x, transform.position.y, 
                 transform.position.z + lookInput.y);
         }
         else if(GetCurrentControlscheme() == keyboardSchemeName)
         {
-            Debug.Log("Using keyboard and mouse!");
+            //Debug.Log("Using keyboard and mouse!");
 
             Vector3 mousePos = inputActions.Player.MousePosition.ReadValue<Vector2>();
             Ray camRay = cam.ScreenPointToRay(mousePos);

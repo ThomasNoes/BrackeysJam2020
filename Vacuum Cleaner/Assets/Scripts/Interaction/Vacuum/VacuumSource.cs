@@ -23,6 +23,11 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void Start()
         {
+            Initiate();
+        }
+
+        private void Initiate()
+        {
             _interactionSphere = GetComponent<SphereCollider>();
             _interactionSphere.isTrigger = true;
             _interactionSphere.center = transform.position;
@@ -70,14 +75,14 @@ namespace Assets.Scripts.Interaction.Vacuum
 
             if (suckable != null)
             {
-                if (AngleCheck(gameObject, obj))
+                if (InRangeCheck(gameObject, obj))
                 {
                     suckable.Suck(transform.position, tempDistance * suckPowerLevel);
                 }
             }
         }
 
-        private bool AngleCheck(GameObject from, GameObject to)
+        private bool InRangeCheck(GameObject from, GameObject to)
         {
 
             Vector3 dir = to.transform.position - from.transform.position;
