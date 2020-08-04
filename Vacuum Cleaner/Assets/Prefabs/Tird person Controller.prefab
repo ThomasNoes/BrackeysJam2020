@@ -784,10 +784,10 @@ MonoBehaviour:
   powered: 0
   isSucking: 0
   isBlowing: 0
-  vacuumPowerLevel: 20
-  minimumPower: 3
+  vacuumPowerLevel: 30
+  minimumPower: 5
   effectiveAngle: 95
-  maximumDistance: 15
+  maximumDistance: 16
   eatDistance: 0.8
   eatenObjects: []
 --- !u!114 &4521088575676887978
