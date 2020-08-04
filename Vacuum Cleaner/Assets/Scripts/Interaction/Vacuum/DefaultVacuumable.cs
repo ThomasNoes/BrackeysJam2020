@@ -37,7 +37,7 @@
                 _isSucked = false;
             } else if (_isBlown)
             {
-                _thisRb.AddForce((_suckTo - transform.position).normalized * _suckForce * Time.smoothDeltaTime);
+                _thisRb.AddForce((transform.position - _blowFrom).normalized * _blowForce * Time.smoothDeltaTime);
                 _isBlown = false;
             }
         }
