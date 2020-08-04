@@ -11,10 +11,11 @@ namespace Assets.Scripts.Interaction.Vacuum
     {
         // Public:
         public bool powered = false, isSucking = false; // NOTE: These are currently public for testing purposes
-        [Range(0.5f, 25.0f)]public float suckPowerLevel = 15.0f;
-        [Tooltip("In degrees")] public float effectiveAngle = 90.0f;
+        [Range(5.0f, 30.0f)]public float suckPowerLevel = 20.0f;
+        [Tooltip("In meters")] public float minimumSuckPower = 3.0f;
+        [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
-        [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.5f;
+        [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.8f;
         public List<GameObject> eatenObjects; // Public for testing purposes, make private later
 
         // Private:
@@ -26,10 +27,10 @@ namespace Assets.Scripts.Interaction.Vacuum
             Initiate();
         }
 
-        private void Update()
-        {
-            Debug.DrawRay(transform.position, transform.forward, Color.yellow);
-        }
+        //private void Update()
+        //{
+        //    Debug.DrawRay(transform.position, transform.forward, Color.yellow);
+        //}
 
         private void Initiate()
         {
@@ -82,7 +83,12 @@ namespace Assets.Scripts.Interaction.Vacuum
             {
                 if (InRangeCheck(gameObject, obj))
                 {
-                    suckable.Suck(transform.position, tempDistance * suckPowerLevel);
+                    var tempSuckForce = suckPowerLevel - tempDistance;
+
+                    if (tempSuckForce < minimumSuckPower)
+                        tempSuckForce = minimumSuckPower;
+
+                    suckable.Suck(transform.position, tempSuckForce);
                 }
             }
         }
