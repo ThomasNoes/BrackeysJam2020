@@ -35,6 +35,8 @@
             if (audioSources != null)
                 if (audioSources.Length >= 0 && index < audioSources.Length)
                     audioSources[index].Stop();
+
+            StopAllCoroutines(); // TODO: Temp fix, find better solution later
         }
 
         public void StopWithDelay(int index, float delayTime)

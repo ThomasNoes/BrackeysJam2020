@@ -2,7 +2,6 @@
 namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
-    using Assets.Scripts.Test;
     using System.Collections;
     using System.Collections.Generic;
     using Assets.Scripts.Audio;
@@ -24,22 +23,18 @@ namespace Assets.Scripts.Interaction.Vacuum
         public GameObject blowParticle;
         public GameObject vacuumParticle;
 
+        public GameObject audioComponentObject;
+
         // Private:
         private SphereCollider _interactionSphere;
-        private IAudio _audio;
         private int _layerMask;
-
+        private IAudio _audioComponent;
 
 
         private void Start()
         {
             Initiate();
         }
-
-        //private void Update()
-        //{
-        //    Debug.DrawRay(transform.position, transform.forward, Color.yellow);
-        //}
 
         private void Initiate()
         {
@@ -52,7 +47,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             _layerMask |= LayerMask.GetMask("Ignore Raycast");
             _layerMask = ~_layerMask;
 
-            _audio = GetComponent<IAudio>();
+            if (audioComponentObject != null)
+                _audioComponent = audioComponentObject.GetComponent<IAudio>();
 
             eatenObjects = new List<GameObject>();
         }
@@ -70,17 +66,23 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void ToggleSuck(bool isOn)
         {
-            if (isBlowing)
+            if (isBlowing || !powered)
                 return;
+
             suckParticle?.SetActive(isOn);
+            AudioSuckHandler(isOn);
+
             isSucking = isOn;
         }
 
         private void ToggleBlow(bool isOn)
         {
-            if (isSucking)
+            if (isSucking || !powered)
                 return;
+
             blowParticle?.SetActive(isOn);
+            AudioBlowHandler(isOn);
+
             isBlowing = isOn;
         }
 
@@ -101,6 +103,7 @@ namespace Assets.Scripts.Interaction.Vacuum
                     {
                         eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
+                        _audioComponent.Play(4);
                         return;
                     }
                 }
@@ -158,6 +161,36 @@ namespace Assets.Scripts.Interaction.Vacuum
             }
 
             return false;
+        }
+
+        private void AudioSuckHandler(bool toggle)
+        {
+            if (toggle)
+            {
+                _audioComponent?.Play(3);
+                _audioComponent?.Play(0);
+                _audioComponent?.PlayWithDelay(1, 0.65f);
+            }
+            else
+            {
+                _audioComponent?.Stop(1);
+                _audioComponent?.Play(2);
+            }
+        }
+
+        private void AudioBlowHandler(bool toggle)
+        {
+            if (toggle)
+            {
+                _audioComponent?.Play(3);
+                _audioComponent?.Play(0);
+                _audioComponent?.PlayWithDelay(1, 0.65f);
+            }
+            else
+            {
+                _audioComponent?.Stop(1);
+                _audioComponent?.Play(2);
+            }
         }
 
         public void PowerOn()
