@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Assets.Scripts.Interaction.Vacuum;
+using System.Linq;
 
 [RequireComponent(typeof(Timer))]
 public class LevelManager : MonoBehaviour
@@ -18,6 +20,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float BlackFadeTime = 2f;
 
     private Timer timer;
+
+    private List<IEatable> eatables = new List<IEatable>();
     private float percentCleaned;
 
     private void Start()
@@ -25,6 +29,8 @@ public class LevelManager : MonoBehaviour
         Fade(0, BlackFadeTime);
         timer = GetComponent<Timer>();
         timer.TimerReachedZero += DisplayEndLevelScreen;
+
+        eatables = FindAllEatables();
     }
 
     private void FixedUpdate()
@@ -67,6 +73,33 @@ public class LevelManager : MonoBehaviour
     private void Fade(float alphaTargetValue, float seconds)
     {
         blackScreen.CrossFadeAlpha(alphaTargetValue, seconds, true);
+    }
+
+    private List<IEatable> FindAllEatables()
+    {
+        List<IEatable> objects = new List<IEatable>();
+        
+        var eatableObjects = FindObjectsOfType<MonoBehaviour>().OfType<IEatable>();
+        foreach (IEatable eatable in eatableObjects)
+        {
+            objects.Add(eatable);
+        }
+        return objects;
+    }
+
+    private float CalculatePercentageEatablesEaten()
+    {
+        float percent = 0; // some eat count / eatables.Count * 100
+        return percent;
+    }
+    private void UpdatePercentEaten(Text tex, int decimalCount)
+    {
+        tex.text = CalculatePercentageEatablesEaten().ToString("F" + decimalCount);
+    }
+
+    private void UpdatePercentEaten(TextMeshProUGUI tex, int decimalCount)
+    {
+        tex.text = CalculatePercentageEatablesEaten().ToString("F" + decimalCount);
     }
 
     IEnumerator LoadSceneAfterDelay(float delay, int sceneBuildIndex)
