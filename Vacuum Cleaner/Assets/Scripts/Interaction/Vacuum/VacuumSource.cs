@@ -1,4 +1,7 @@
 ﻿// This script should be located at the head of the vacuum cleaner.
+
+using Assets.Scripts.Input;
+
 namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
@@ -7,7 +10,7 @@ namespace Assets.Scripts.Interaction.Vacuum
     using System.Collections.Generic;
 
     [RequireComponent(typeof(SphereCollider))]
-    public class VacuumSource : MonoBehaviour, IPower, ITester
+    public class VacuumSource : MonoBehaviour, IPower, IVacuumControls
     {
         // Public:
         public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
@@ -156,18 +159,24 @@ namespace Assets.Scripts.Interaction.Vacuum
             powered = false;
         }
 
-        #region Test Functions
-
-        public void StartTest()
+        public void StartSuck()
         {
             ToggleSuck(true);
         }
 
-        public void StopTest()
+        public void StopSuck()
         {
             ToggleSuck(false);
         }
 
-        #endregion
+        public void StartBlow()
+        {
+            ToggleBlow(true);
+        }
+
+        public void StopBlow()
+        {
+            ToggleBlow(false);
+        }
     }
 }
