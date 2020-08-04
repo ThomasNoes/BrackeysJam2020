@@ -10,9 +10,9 @@ namespace Assets.Scripts.Interaction.Vacuum
     public class VacuumSource : MonoBehaviour, IPower, ITester
     {
         // Public:
-        public bool powered = false, isSucking = false; // NOTE: These are currently public for testing purposes
-        [Range(5.0f, 30.0f)]public float suckPowerLevel = 20.0f;
-        [Tooltip("In meters")] public float minimumSuckPower = 3.0f;
+        public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
+        [Range(5.0f, 30.0f)]public float vacuumPowerLevel = 20.0f;
+        [Tooltip("In meters")] public float minimumPower = 3.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
         [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.8f;
@@ -50,11 +50,24 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             if (isSucking)
                 DoSuck(col.gameObject);
+            else if (isBlowing)
+                DoBlow(col.gameObject);
         }
 
         private void ToggleSuck(bool isOn)
         {
+            if (isBlowing)
+                return;
+
             isSucking = isOn;
+        }
+
+        private void ToggleBlow(bool isOn)
+        {
+            if (isSucking)
+                return;
+
+            isBlowing = isOn;
         }
 
         private void DoSuck(GameObject obj)
@@ -83,12 +96,32 @@ namespace Assets.Scripts.Interaction.Vacuum
             {
                 if (InRangeCheck(gameObject, obj))
                 {
-                    var tempSuckForce = suckPowerLevel - tempDistance;
+                    var tempSuckForce = vacuumPowerLevel - tempDistance;
 
-                    if (tempSuckForce < minimumSuckPower)
-                        tempSuckForce = minimumSuckPower;
+                    if (tempSuckForce < minimumPower)
+                        tempSuckForce = minimumPower;
 
                     suckable.Suck(transform.position, tempSuckForce);
+                }
+            }
+        }
+
+        private void DoBlow(GameObject obj)
+        {
+            IBlowable blowable = obj.GetComponent<IBlowable>();
+
+            if (blowable != null)
+            {
+                var tempDistance = Vector3.Distance(transform.position, obj.transform.position);
+
+                if (InRangeCheck(gameObject, obj))
+                {
+                    var tempBlowForce = vacuumPowerLevel - tempDistance;
+
+                    if (tempBlowForce < minimumPower)
+                        tempBlowForce = minimumPower;
+
+                    blowable.Blow(transform.position, tempBlowForce);
                 }
             }
         }
@@ -123,6 +156,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             powered = false;
         }
 
+        #region Test Functions
+
         public void StartTest()
         {
             ToggleSuck(true);
@@ -132,5 +167,7 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             ToggleSuck(false);
         }
+
+        #endregion
     }
 }

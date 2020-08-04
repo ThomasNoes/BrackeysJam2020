@@ -57,6 +57,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Blow"",
+                    ""type"": ""Button"",
+                    ""id"": ""07000dc5-8d1a-49b0-b3de-91c7c5f2fa8a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -305,11 +313,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3bb36bec-b7f4-4c57-81b5-8519d583f44c"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Suck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bb2f087-021f-43da-adb9-63a5b6f00c3f"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Blow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca3fca4d-d80d-4407-9746-1898253c7795"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Blow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -892,6 +922,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         m_Player_Suck = m_Player.FindAction("Suck", throwIfNotFound: true);
+        m_Player_Blow = m_Player.FindAction("Blow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -958,6 +989,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_MousePosition;
     private readonly InputAction m_Player_Suck;
+    private readonly InputAction m_Player_Blow;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -967,6 +999,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputAction @Suck => m_Wrapper.m_Player_Suck;
+        public InputAction @Blow => m_Wrapper.m_Player_Blow;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -991,6 +1024,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Suck.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSuck;
                 @Suck.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSuck;
                 @Suck.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSuck;
+                @Blow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlow;
+                @Blow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlow;
+                @Blow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlow;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1010,6 +1046,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Suck.started += instance.OnSuck;
                 @Suck.performed += instance.OnSuck;
                 @Suck.canceled += instance.OnSuck;
+                @Blow.started += instance.OnBlow;
+                @Blow.performed += instance.OnBlow;
+                @Blow.canceled += instance.OnBlow;
             }
         }
     }
@@ -1171,6 +1210,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnSuck(InputAction.CallbackContext context);
+        void OnBlow(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Blow",
+                    "type": "Button",
+                    "id": "07000dc5-8d1a-49b0-b3de-91c7c5f2fa8a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -292,11 +300,33 @@
                 {
                     "name": "",
                     "id": "3bb36bec-b7f4-4c57-81b5-8519d583f44c",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "Hold",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Suck",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bb2f087-021f-43da-adb9-63a5b6f00c3f",
+                    "path": "<Keyboard>/b",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Blow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca3fca4d-d80d-4407-9746-1898253c7795",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Blow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

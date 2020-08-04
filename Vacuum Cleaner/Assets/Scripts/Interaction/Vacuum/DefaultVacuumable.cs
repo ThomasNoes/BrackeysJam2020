@@ -10,9 +10,9 @@
 
         // Private: 
         private Rigidbody _thisRb;
-        private Vector3 _suckTo;
-        private float _suckForce;
-        private bool _isSucked;
+        private Vector3 _suckTo, _blowFrom;
+        private float _suckForce, _blowForce;
+        private bool _isSucked, _isBlown;
 
         private void Start()
         {
@@ -35,6 +35,10 @@
             {
                 _thisRb.AddForce((_suckTo - transform.position).normalized * _suckForce * Time.smoothDeltaTime);
                 _isSucked = false;
+            } else if (_isBlown)
+            {
+                _thisRb.AddForce((_suckTo - transform.position).normalized * _suckForce * Time.smoothDeltaTime);
+                _isBlown = false;
             }
         }
 
@@ -53,10 +57,14 @@
             // TODO: Needs implementation
         }
 
-        public void Blow() // Does nothing yet
+        public void Blow(Vector3 blowFrom, float blowForce)
         {
             if (!isBlowable)
                 return;
+
+            _blowFrom = blowFrom;
+            _blowForce = blowForce;
+            _isBlown = true;
         }
     }
 }
