@@ -15,26 +15,35 @@
 
             var script = target as AudioManager;
 
+            if (script == null)
+                return;
+
             DrawDefaultInspector();
 
-            if (script.playSoundOnStart)
-            {
-                script.startDelay = EditorGUILayout.FloatField("Start Delay: ", script.startDelay);
-            }
+            if (script.audioSources == null)
+                return;
 
             DrawUILine(true);
+
+            script.inspectorIndex = EditorGUILayout.IntField("Sound at Index: ", script.inspectorIndex);
 
             if (GUILayout.Button("Play Sound"))
             {
                 if (Application.isPlaying)
-                    script?.Play();
+                {
+                    if (script.inspectorIndex >= 0 && script.inspectorIndex < script.audioSources.Length)
+                        script.Play(script.inspectorIndex);
+                }
                 else
                     Debug.Log("You must run the game to play sounds");
             }
             if (GUILayout.Button("Stop Sound"))
             {
                 if (Application.isPlaying)
-                    script?.Stop();
+                {
+                    if (script.inspectorIndex >= 0 && script.inspectorIndex < script.audioSources.Length)
+                        script.Stop(script.inspectorIndex);
+                }
                 else
                     Debug.Log("You must run the game to stop sounds");
             }
