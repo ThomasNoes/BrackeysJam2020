@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Assets.Scripts.Audio;
 
 public class SocketBehaviour : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class SocketBehaviour : MonoBehaviour
     public string unplugText;
     public string tangleCordText;
     public string missingCordText;
+
+
+    [Space]public GameObject audioComponent;
+    private IAudio audio;
 
     TMP_Text text;
 
@@ -35,6 +40,7 @@ public class SocketBehaviour : MonoBehaviour
         text = gameObject.GetComponentInChildren<TMP_Text>();
         text.transform.rotation = Camera.main.transform.rotation;
         signifier.SetActive(false);
+        audio = audioComponent.GetComponent<IAudio>();
     }
 
     // Update is called once per frame
@@ -52,7 +58,10 @@ public class SocketBehaviour : MonoBehaviour
             {
                 DetachCord();
             }
-
+            else if ((cb.GetIsHooked() && !cordAttached || cb.GetRopeBent()) && inputActions.Player.Fire.triggered)
+            {
+                audio.Play(2);
+            }
 
         }
     }
@@ -64,6 +73,7 @@ public class SocketBehaviour : MonoBehaviour
         cordAttached = true;
         vs.PowerOn();
         UpdateText();
+        audio.Play(0);
     }
 
     private void DetachCord()
@@ -73,6 +83,7 @@ public class SocketBehaviour : MonoBehaviour
         cordAttached = false;
         vs.PowerOff();
         UpdateText();
+        audio.Play(1);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,6 +93,7 @@ public class SocketBehaviour : MonoBehaviour
             interactable = true;
             signifier.SetActive(true);
             UpdateText();
+            audio.Play(3);
         }
     }
 

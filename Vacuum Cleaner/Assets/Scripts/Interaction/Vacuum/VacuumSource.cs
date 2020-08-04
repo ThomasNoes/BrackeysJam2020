@@ -1,6 +1,7 @@
 ﻿// This script should be located at the head of the vacuum cleaner.
 namespace Assets.Scripts.Interaction.Vacuum
 {
+    using System;
     using UnityEngine;
     using System.Collections;
     using System.Collections.Generic;
@@ -23,7 +24,11 @@ namespace Assets.Scripts.Interaction.Vacuum
         public GameObject blowParticle;
         public GameObject vacuumParticle;
 
+        // Ref for components:
         public GameObject audioComponentObject;
+
+        // Events
+        public event Action eatEvent;
 
         // Private:
         private SphereCollider _interactionSphere;
@@ -104,6 +109,7 @@ namespace Assets.Scripts.Interaction.Vacuum
                         eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
                         _audioComponent.Play(4);
+                        eatEvent?.Invoke();
                         return;
                     }
                 }
@@ -169,7 +175,7 @@ namespace Assets.Scripts.Interaction.Vacuum
             {
                 _audioComponent?.Play(3);
                 _audioComponent?.Play(0);
-                _audioComponent?.PlayWithDelay(1, 0.65f);
+                _audioComponent?.PlayWithDelay(1, 0.71f);
             }
             else
             {
@@ -183,13 +189,13 @@ namespace Assets.Scripts.Interaction.Vacuum
             if (toggle)
             {
                 _audioComponent?.Play(3);
-                _audioComponent?.Play(0);
-                _audioComponent?.PlayWithDelay(1, 0.65f);
+                _audioComponent?.Play(5);
+                _audioComponent?.PlayWithDelay(6, 0.55f);
             }
             else
             {
-                _audioComponent?.Stop(1);
-                _audioComponent?.Play(2);
+                _audioComponent?.Stop(6);
+                _audioComponent?.Play(7);
             }
         }
 
