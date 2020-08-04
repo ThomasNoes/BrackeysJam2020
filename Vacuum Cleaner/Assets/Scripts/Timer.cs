@@ -5,9 +5,9 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 
+public enum TimerType { countDown, countUp, puase };
 public class Timer : MonoBehaviour
 {
-    enum TimerType { countDown, countUp};
 
     [SerializeField] private TimerType timerType;
     [SerializeField] private float startTime;
@@ -103,4 +103,13 @@ public class Timer : MonoBehaviour
         tex.text = GetCurrentTime().ToString("F"+decimalCount);
     }
 
+    public void PauseTimer()
+    {
+        timerType = TimerType.puase;
+    }
+
+    public void StartTimer(TimerType type)
+    {
+        timerType = type;
+    }
 }
