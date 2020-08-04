@@ -1,13 +1,12 @@
 ﻿// This script should be located at the head of the vacuum cleaner.
-
-using Assets.Scripts.Input;
-
 namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
     using Assets.Scripts.Test;
     using System.Collections;
     using System.Collections.Generic;
+    using Assets.Scripts.Audio;
+    using Assets.Scripts.Input;
 
     [RequireComponent(typeof(SphereCollider))]
     public class VacuumSource : MonoBehaviour, IPower, IVacuumControls
@@ -23,6 +22,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         // Private:
         private SphereCollider _interactionSphere;
+        private IAudio _audio;
         private int _layerMask;
 
         private void Start()
@@ -45,6 +45,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             _layerMask = LayerMask.GetMask("Player");
             _layerMask |= LayerMask.GetMask("Ignore Raycast");
             _layerMask = ~_layerMask;
+
+            _audio = GetComponent<IAudio>();
 
             eatenObjects = new List<GameObject>();
         }

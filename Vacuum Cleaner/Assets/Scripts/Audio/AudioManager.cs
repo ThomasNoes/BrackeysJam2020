@@ -1,50 +1,58 @@
 ﻿namespace Assets.Scripts.Audio 
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
 
     [RequireComponent(typeof(AudioSource))]
     public class AudioManager : MonoBehaviour, IAudio
     {
         // Public:
-        public bool playSoundOnStart = false;
-        [HideInInspector] public float startDelay = 0.0f;
+        public AudioSource[] audioSources;
+        [HideInInspector] public int inspectorIndex;
 
         // Private:
-        private AudioSource _thisSource;
+        private int _tempIndex;
 
         private void Awake()
         {
-            _thisSource = GetComponent<AudioSource>();
+            audioSources = GetComponents<AudioSource>();
         }
 
-        private void Start()
+        public void Play(int index)
         {
-            if (playSoundOnStart)
-                if (!_thisSource.playOnAwake) // If playOnAwake is true, the source plays before start 
-                    if (startDelay <= 0.1f)
-                        Play();
-                    else
-                        PlayWithDelay(startDelay);
+            if (audioSources != null)
+                if (audioSources.Length >= 0 && index < audioSources.Length)
+                    audioSources[index].Play();
         }
 
-        public void Play()
+        public void PlayWithDelay(int index, float delayTime)
         {
-            _thisSource.Play();
+            StartCoroutine(DelayPlay(index, new WaitForSeconds(delayTime)));
         }
 
-        public void PlayWithDelay(float delayTime)
+        public void Stop(int index)
         {
-            Invoke("Play", delayTime);
+            if (audioSources != null)
+                if (audioSources.Length >= 0 && index < audioSources.Length)
+                    audioSources[index].Stop();
         }
 
-        public void Stop()
+        public void StopWithDelay(int index, float delayTime)
         {
-            _thisSource.Stop();
+            StartCoroutine(DelayStop(index, new WaitForSeconds(delayTime)));
         }
 
-        public void StopWithDelay(float delayTime)
+        private IEnumerator DelayPlay(int index, WaitForSeconds delay)
         {
-            Invoke("Stop", delayTime);
+            yield return delay;
+            Play(index);
+        }
+
+        private IEnumerator DelayStop(int index, WaitForSeconds delay)
+        {
+            yield return delay;
+            Stop(index);
         }
     }
 }
