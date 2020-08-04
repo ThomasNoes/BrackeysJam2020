@@ -21,6 +21,8 @@ public class TopDownMovement : MonoBehaviour
     private Vector2 lookInput;
     private Rigidbody rb;
 
+    private Vector3 previousRotationInput = Vector3.zero;
+
     private void Awake()
     {
         inputActions = new PlayerControls();
@@ -37,12 +39,6 @@ public class TopDownMovement : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(calculateOrientation());
         rb.AddForce(calculateMovement() * Time.fixedDeltaTime, ForceMode.VelocityChange);
     }
-
-    private void LateUpdate()
-    {        
-
-    }
-
     private Vector3 calculateMovement()
     {
         //not normalized movement
@@ -57,11 +53,18 @@ public class TopDownMovement : MonoBehaviour
     private Vector3 calculateOrientation()
     {
         Vector3 desiredLookPoint = Vector3.zero;
+        #region Gamepad character rotation
         if (GetCurrentControlscheme() == gamepadSchemeName)
         {
             desiredLookPoint = new Vector3(lookInput.x, 0, lookInput.y);
+            if(desiredLookPoint == Vector3.zero)
+            {
+                desiredLookPoint = previousRotationInput;
+            }
+            previousRotationInput = desiredLookPoint;
             return desiredLookPoint;
         }
+        #endregion
         else if (GetCurrentControlscheme() == keyboardSchemeName)
         {
             //Debug.Log("Using keyboard and mouse!");
