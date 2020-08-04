@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SocketBehaviour : MonoBehaviour
 {
     bool interactable = false;
     public GameObject signifier;
+
+    public string plugText;
+    public string unplugText;
+    public string tangleCordText;
+    public string missingCordText;
+
+    TMP_Text text;
 
     bool cordAttached;
 
@@ -24,6 +32,9 @@ public class SocketBehaviour : MonoBehaviour
     {
         cb = GameObject.Find("CordHead").GetComponent<CordBehaviour>();
         vs = GameObject.Find("vaccum head").GetComponent<Assets.Scripts.Interaction.Vacuum.VacuumSource>();
+        text = gameObject.GetComponentInChildren<TMP_Text>();
+        text.transform.rotation = Camera.main.transform.rotation;
+        signifier.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,7 +42,6 @@ public class SocketBehaviour : MonoBehaviour
     {
         if (interactable)
         {
-            Debug.Log(cb.name);
 
             if (!cb.GetIsHooked() && inputActions.Player.Fire.triggered)
             {
@@ -53,7 +63,7 @@ public class SocketBehaviour : MonoBehaviour
         cb.AttachToSocket(gameObject);
         cordAttached = true;
         vs.PowerOn();
-
+        UpdateText();
     }
 
     private void DetachCord()
@@ -62,6 +72,7 @@ public class SocketBehaviour : MonoBehaviour
         cb.ResetHook();
         cordAttached = false;
         vs.PowerOff();
+        UpdateText();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -70,6 +81,7 @@ public class SocketBehaviour : MonoBehaviour
         {
             interactable = true;
             signifier.SetActive(true);
+            UpdateText();
         }
     }
 
@@ -80,6 +92,22 @@ public class SocketBehaviour : MonoBehaviour
 
             interactable = false;
             signifier.SetActive(false);
+        }
+    }
+
+    private void UpdateText()
+    {
+        if (cb.GetIsHooked() && !cordAttached || cb.GetRopeBent())
+        {
+            text.text = tangleCordText;
+        }
+        else if (cordAttached)
+        {
+            text.text = unplugText;
+        }
+        else if (!cordAttached)
+        {
+            text.text = plugText;
         }
     }
 

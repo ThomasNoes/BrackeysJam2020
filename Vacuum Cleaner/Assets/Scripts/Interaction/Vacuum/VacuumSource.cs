@@ -1,39 +1,40 @@
 ﻿// This script should be located at the head of the vacuum cleaner.
-
-using Assets.Scripts.Input;
-
 namespace Assets.Scripts.Interaction.Vacuum
 {
     using UnityEngine;
-    using Assets.Scripts.Test;
     using System.Collections;
     using System.Collections.Generic;
+    using Assets.Scripts.Audio;
+    using Assets.Scripts.Input;
 
     [RequireComponent(typeof(SphereCollider))]
     public class VacuumSource : MonoBehaviour, IPower, IVacuumControls
     {
         // Public:
         public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
-        [Range(5.0f, 100.0f)]public float vacuumPowerLevel = 30.0f;
+        [Range(5.0f, 200.0f)]public float vacuumPowerLevel = 100.0f;
         [Tooltip("In meters")] public float minimumPower = 3.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
         [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.8f;
         public List<GameObject> eatenObjects; // Public for testing purposes, make private later
 
+        [Space]public GameObject suckParticle;
+        public GameObject blowParticle;
+        public GameObject vacuumParticle;
+
+        public GameObject audioComponentObject;
+
         // Private:
         private SphereCollider _interactionSphere;
         private int _layerMask;
+        private IAudio _audioComponent;
+
 
         private void Start()
         {
             Initiate();
         }
-
-        //private void Update()
-        //{
-        //    Debug.DrawRay(transform.position, transform.forward, Color.yellow);
-        //}
 
         private void Initiate()
         {
@@ -46,11 +47,17 @@ namespace Assets.Scripts.Interaction.Vacuum
             _layerMask |= LayerMask.GetMask("Ignore Raycast");
             _layerMask = ~_layerMask;
 
+            if (audioComponentObject != null)
+                _audioComponent = audioComponentObject.GetComponent<IAudio>();
+
             eatenObjects = new List<GameObject>();
         }
 
         private void OnTriggerStay(Collider col)
         {
+            if (!powered)
+                return;
+
             if (isSucking)
                 DoSuck(col.gameObject);
             else if (isBlowing)
@@ -59,16 +66,22 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void ToggleSuck(bool isOn)
         {
-            if (isBlowing)
+            if (isBlowing || !powered)
                 return;
+
+            suckParticle?.SetActive(isOn);
+            AudioSuckHandler(isOn);
 
             isSucking = isOn;
         }
 
         private void ToggleBlow(bool isOn)
         {
-            if (isSucking)
+            if (isSucking || !powered)
                 return;
+
+            blowParticle?.SetActive(isOn);
+            AudioBlowHandler(isOn);
 
             isBlowing = isOn;
         }
@@ -90,6 +103,7 @@ namespace Assets.Scripts.Interaction.Vacuum
                     {
                         eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
+                        _audioComponent.Play(4);
                         return;
                     }
                 }
@@ -149,14 +163,46 @@ namespace Assets.Scripts.Interaction.Vacuum
             return false;
         }
 
+        private void AudioSuckHandler(bool toggle)
+        {
+            if (toggle)
+            {
+                _audioComponent?.Play(3);
+                _audioComponent?.Play(0);
+                _audioComponent?.PlayWithDelay(1, 0.65f);
+            }
+            else
+            {
+                _audioComponent?.Stop(1);
+                _audioComponent?.Play(2);
+            }
+        }
+
+        private void AudioBlowHandler(bool toggle)
+        {
+            if (toggle)
+            {
+                _audioComponent?.Play(3);
+                _audioComponent?.Play(0);
+                _audioComponent?.PlayWithDelay(1, 0.65f);
+            }
+            else
+            {
+                _audioComponent?.Stop(1);
+                _audioComponent?.Play(2);
+            }
+        }
+
         public void PowerOn()
         {
             powered = true;
+            vacuumParticle?.SetActive(true);
         }
 
         public void PowerOff()
         {
             powered = false;
+            vacuumParticle?.SetActive(false);
         }
 
         public void StartSuck()
