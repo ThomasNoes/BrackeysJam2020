@@ -71,7 +71,13 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void ToggleSuck(bool isOn)
         {
-            if (isBlowing || !powered)
+            if (isBlowing)
+                return;
+
+            if (isOn)
+                _audioComponent?.Play(3);
+
+            if (!powered)
                 return;
 
             suckParticle?.SetActive(isOn);
@@ -82,7 +88,13 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void ToggleBlow(bool isOn)
         {
-            if (isSucking || !powered)
+            if (isSucking)
+                return;
+
+            if (isOn)
+                _audioComponent?.Play(3);
+
+            if (!powered)
                 return;
 
             blowParticle?.SetActive(isOn);
@@ -108,8 +120,8 @@ namespace Assets.Scripts.Interaction.Vacuum
                     {
                         eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
-                        _audioComponent.Play(4);
-                        eatEvent?.Invoke();
+                        _audioComponent.Play(4); // Play eat sound
+                        eatEvent?.Invoke(); // Invoke eat event
                         return;
                     }
                 }
@@ -169,11 +181,11 @@ namespace Assets.Scripts.Interaction.Vacuum
             return false;
         }
 
+        #region AudioHandlers
         private void AudioSuckHandler(bool toggle)
         {
             if (toggle)
             {
-                _audioComponent?.Play(3);
                 _audioComponent?.Play(0);
                 _audioComponent?.PlayWithDelay(1, 0.71f);
             }
@@ -188,7 +200,6 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             if (toggle)
             {
-                _audioComponent?.Play(3);
                 _audioComponent?.Play(5);
                 _audioComponent?.PlayWithDelay(6, 0.55f);
             }
@@ -198,6 +209,7 @@ namespace Assets.Scripts.Interaction.Vacuum
                 _audioComponent?.Play(7);
             }
         }
+        #endregion
 
         public void PowerOn()
         {
