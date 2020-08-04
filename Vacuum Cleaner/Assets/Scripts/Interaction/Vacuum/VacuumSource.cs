@@ -53,6 +53,9 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void OnTriggerStay(Collider col)
         {
+            if (!powered)
+                return;
+
             if (isSucking)
                 DoSuck(col.gameObject);
             else if (isBlowing)
