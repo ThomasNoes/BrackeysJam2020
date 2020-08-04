@@ -794,6 +794,9 @@ MonoBehaviour:
   maximumDistance: 16
   eatDistance: 0.8
   eatenObjects: []
+  suckParticle: {fileID: 14177820}
+  blowParticle: {fileID: 790550720}
+  vacuumParticle: {fileID: 1355613024}
 --- !u!114 &4521088575676887978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,8 +970,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: vacuum cleaner particle
       objectReference: {fileID: 0}
+    - target: {fileID: 1162518654790532831, guid: 9a21be660362c1e438f987300481d379,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a21be660362c1e438f987300481d379, type: 3}
+--- !u!1 &1355613024 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1162518654790532831, guid: 9a21be660362c1e438f987300481d379,
+    type: 3}
+  m_PrefabInstance: {fileID: 1162518656127663551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1355613025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1162518654790532830, guid: 9a21be660362c1e438f987300481d379,
@@ -1042,11 +1056,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: suck smoke particle
       objectReference: {fileID: 0}
+    - target: {fileID: 1725321546915838903, guid: f45fe5b8a36ef4642be6a8306ba6d5f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f45fe5b8a36ef4642be6a8306ba6d5f0, type: 3}
 --- !u!4 &14177821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1725321546915838902, guid: f45fe5b8a36ef4642be6a8306ba6d5f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1725321546926828971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &14177820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1725321546915838903, guid: f45fe5b8a36ef4642be6a8306ba6d5f0,
     type: 3}
   m_PrefabInstance: {fileID: 1725321546926828971}
   m_PrefabAsset: {fileID: 0}
@@ -1061,6 +1086,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: blow smoke particle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994640200531772686, guid: a7001a873d18a4c41a22cc87a596a3c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1994640200531772687, guid: a7001a873d18a4c41a22cc87a596a3c6,
         type: 3}
@@ -1122,6 +1152,12 @@ PrefabInstance:
 --- !u!4 &790550721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1994640200531772687, guid: a7001a873d18a4c41a22cc87a596a3c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1994640199744216526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &790550720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1994640200531772686, guid: a7001a873d18a4c41a22cc87a596a3c6,
     type: 3}
   m_PrefabInstance: {fileID: 1994640199744216526}
   m_PrefabAsset: {fileID: 0}

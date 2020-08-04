@@ -20,10 +20,16 @@ namespace Assets.Scripts.Interaction.Vacuum
         [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.8f;
         public List<GameObject> eatenObjects; // Public for testing purposes, make private later
 
+        [Space]public GameObject suckParticle;
+        public GameObject blowParticle;
+        public GameObject vacuumParticle;
+
         // Private:
         private SphereCollider _interactionSphere;
         private IAudio _audio;
         private int _layerMask;
+
+
 
         private void Start()
         {
@@ -63,7 +69,7 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             if (isBlowing)
                 return;
-
+            suckParticle?.SetActive(isOn);
             isSucking = isOn;
         }
 
@@ -71,7 +77,7 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             if (isSucking)
                 return;
-
+            blowParticle?.SetActive(isOn);
             isBlowing = isOn;
         }
 
@@ -154,11 +160,13 @@ namespace Assets.Scripts.Interaction.Vacuum
         public void PowerOn()
         {
             powered = true;
+            vacuumParticle?.SetActive(true);
         }
 
         public void PowerOff()
         {
             powered = false;
+            vacuumParticle?.SetActive(false);
         }
 
         public void StartSuck()
