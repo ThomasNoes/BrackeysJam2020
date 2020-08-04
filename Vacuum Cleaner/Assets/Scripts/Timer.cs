@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class Timer : MonoBehaviour
 {
@@ -13,8 +16,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private bool stopOnZero;
 
     private float _currentTime;
-    public delegate void TimerIsZero();
-    public event TimerIsZero OnTimerIsZero;
+    public event Action TimerReachedZero;
 
     private void Start()
     {
@@ -37,9 +39,9 @@ public class Timer : MonoBehaviour
     {
         if (stopOnZero)
         {
-            if (CheckTimerZero())
+            if (CheckTimerZero() && TimerReachedZero != null)
             {
-                OnTimerIsZero();
+                TimerReachedZero?.Invoke();
                 return;
             }
         }
@@ -47,10 +49,10 @@ public class Timer : MonoBehaviour
         switch (timerType)
         {
             case TimerType.countDown:
-
+                CountDown();
                 break;
             case TimerType.countUp:
-
+                CountUp();
                 break;
             default:
                 //pause
@@ -76,4 +78,29 @@ public class Timer : MonoBehaviour
         }
         return false;
     }
+
+    public float GetCurrentTime()
+    {
+        return _currentTime;
+    }
+
+    /// <summary>
+    /// updates a the text of a text field with the current time of the timer, displayed with decimalCount decimals.
+    /// </summary>
+    /// <param name="tex"></param>
+    /// <param name="decimalCount"></param>
+    public void UpdateText(Text tex, int decimalCount)
+    {
+        tex.text = GetCurrentTime().ToString("F"+decimalCount);
+    }
+    /// <summary>
+    /// updates a the text of a text mesh pro field with the current time of the timer, displayed with decimalCount decimals.
+    /// </summary>
+    /// <param name="tex"></param>
+    /// <param name="decimalCount"></param>
+    public void UpdateText(TextMeshProUGUI tex, int decimalCount)
+    {
+        tex.text = GetCurrentTime().ToString("F"+decimalCount);
+    }
+
 }

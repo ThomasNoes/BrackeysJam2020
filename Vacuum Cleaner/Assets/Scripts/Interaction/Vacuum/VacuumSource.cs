@@ -12,7 +12,7 @@ namespace Assets.Scripts.Interaction.Vacuum
     {
         // Public:
         public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
-        [Range(5.0f, 100.0f)]public float vacuumPowerLevel = 30.0f;
+        [Range(5.0f, 200.0f)]public float vacuumPowerLevel = 100.0f;
         [Tooltip("In meters")] public float minimumPower = 3.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
@@ -169,7 +169,7 @@ namespace Assets.Scripts.Interaction.Vacuum
             {
                 _audioComponent?.Play(3);
                 _audioComponent?.Play(0);
-                _audioComponent?.PlayWithDelay(1, 0.65f);
+                _audioComponent?.PlayWithDelay(1, 0.71f);
             }
             else
             {
@@ -183,13 +183,13 @@ namespace Assets.Scripts.Interaction.Vacuum
             if (toggle)
             {
                 _audioComponent?.Play(3);
-                _audioComponent?.Play(0);
-                _audioComponent?.PlayWithDelay(1, 0.65f);
+                _audioComponent?.Play(5);
+                _audioComponent?.PlayWithDelay(6, 0.55f);
             }
             else
             {
-                _audioComponent?.Stop(1);
-                _audioComponent?.Play(2);
+                _audioComponent?.Stop(6);
+                _audioComponent?.Play(7);
             }
         }
 
