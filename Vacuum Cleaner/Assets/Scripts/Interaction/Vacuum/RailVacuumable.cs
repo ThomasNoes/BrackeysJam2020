@@ -6,7 +6,7 @@
     public class RailVacuumable : MonoBehaviour, ISuckable, IBlowable
     {
         public Vector3 fromPos, toPos;
-        public float drag = 2.0f, mass = 0.7f;
+        public float drag = 1.7f, mass = 0.5f;
         public bool constrainLocalX, constrainLocalZ;
         public int railLayer = 13;
 
