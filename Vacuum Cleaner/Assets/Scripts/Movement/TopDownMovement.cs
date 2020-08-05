@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Assets.Scripts.Input;
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TopDownMovement : MonoBehaviour
 
     private Camera cam;
     private PlayerControls inputActions;
+    private InputHandler inputHandler;
     private Vector2 movementInput;
     private Vector2 lookInput;
     private Rigidbody rb;
@@ -27,9 +29,14 @@ public class TopDownMovement : MonoBehaviour
 
     private void Awake()
     {
-        inputActions = new PlayerControls();
-        inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        inputActions.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+        inputHandler = FindObjectOfType<InputHandler>();
+        if (inputHandler != null)
+        {
+            inputActions = inputHandler.GetPlayerControls();
+
+            inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+            inputActions.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+        }
 
         rb = GetComponent<Rigidbody>();
         cam = Camera.main;
@@ -107,14 +114,5 @@ public class TopDownMovement : MonoBehaviour
     {
         string controlScheme = playerInput.currentControlScheme;
         return controlScheme;
-    }
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
     }
 }

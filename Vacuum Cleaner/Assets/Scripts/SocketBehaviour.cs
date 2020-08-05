@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Assets.Scripts.Audio;
+using Assets.Scripts.Input;
 
 public class SocketBehaviour : MonoBehaviour
 {
@@ -26,10 +27,13 @@ public class SocketBehaviour : MonoBehaviour
     Assets.Scripts.Interaction.Vacuum.VacuumSource vs;
 
     private PlayerControls inputActions;
+    private InputHandler inputHandler;
 
     void Awake()
     {
-        inputActions = new PlayerControls();
+        inputHandler = FindObjectOfType<InputHandler>();
+        if (inputHandler != null)
+            inputActions = inputHandler.GetPlayerControls();
     }
 
     // Start is called before the first frame update
@@ -121,15 +125,5 @@ public class SocketBehaviour : MonoBehaviour
         {
             text.text = plugText;
         }
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
     }
 }
