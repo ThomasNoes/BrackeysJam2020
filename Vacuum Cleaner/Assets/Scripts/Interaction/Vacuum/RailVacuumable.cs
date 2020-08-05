@@ -8,7 +8,7 @@
         public Vector3 fromPos, toPos;
         public float drag = 2.0f, mass = 0.7f;
         public bool constrainLocalX, constrainLocalZ;
-        public int railLayer = 12;
+        public int railLayer = 13;
 
         private Rigidbody _rb;
 
