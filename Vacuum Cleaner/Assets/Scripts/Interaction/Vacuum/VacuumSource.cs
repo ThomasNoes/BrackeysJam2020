@@ -12,7 +12,7 @@ namespace Assets.Scripts.Interaction.Vacuum
     {
         // Public:
         public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
-        [Range(5.0f, 200.0f)]public float vacuumPowerLevel = 100.0f;
+        [Range(5.0f, 1500.0f)]public float vacuumPowerLevel = 300.0f;
         [Tooltip("In meters")] public float minimumPower = 3.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
@@ -23,6 +23,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         // Ref for components:
         public GameObject audioComponentObject;
+        public GameObject indicatorComponentObject;
 
         // Events
         public event Action eatEvent;
@@ -31,8 +32,11 @@ namespace Assets.Scripts.Interaction.Vacuum
         private SphereCollider _interactionSphere;
         private int _layerMask;
         private bool _suckPending, _blowPending, _effectsActive;
-        private IAudio _audioComponent;
         private List<GameObject> _eatenObjects;
+
+        // Interface refs:
+        private IAudio _audioComponent;
+        private IIndicator _indicator;
 
         #region Start & Initiate
 
@@ -55,6 +59,9 @@ namespace Assets.Scripts.Interaction.Vacuum
             if (audioComponentObject != null)
                 _audioComponent = audioComponentObject.GetComponent<IAudio>();
 
+            if (indicatorComponentObject != null)
+                _indicator = indicatorComponentObject.GetComponent<IIndicator>();
+
             _eatenObjects = new List<GameObject>();
         }
 
@@ -73,6 +80,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             else if (isBlowing)
                 DoBlow(col.gameObject);
         }
+
+        #region Toggle
 
         private void ToggleSuck(bool isOn)
         {
@@ -103,7 +112,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
             if (isSucking)
                 return;
-            
+
             if (isOn)
                 _audioComponent?.Play(3);
 
@@ -119,6 +128,8 @@ namespace Assets.Scripts.Interaction.Vacuum
                 ToggleSuckEffects(true);
             }
         }
+
+        #endregion
 
         private void DoSuck(GameObject obj)
         {
@@ -198,26 +209,6 @@ namespace Assets.Scripts.Interaction.Vacuum
             return false;
         }
 
-        private void SetToDisable()
-        {
-            if (_blowPending)
-                _blowPending = false;
-            if (_suckPending)
-                _suckPending = false;
-            if (_effectsActive)
-            {
-                AudioBlowHandler(false);
-                AudioSuckHandler(false);
-                ToggleBlowEffects(false);
-                ToggleSuckEffects(false);
-                _effectsActive = false;
-            }
-            if (isBlowing)
-                isBlowing = false;
-            if (isSucking)
-                isSucking = false;
-        }
-
         #region Effect Controllers
 
         private void ToggleSuckEffects(bool isOn)
@@ -280,12 +271,14 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             powered = true;
             vacuumParticle?.SetActive(true);
+            _indicator?.IndicatorOn();
         }
 
         public void PowerOff()
         {
             powered = false;
             vacuumParticle?.SetActive(false);
+            _indicator?.IndicatorOff();
         }
 
         public void StartSuck()
@@ -306,6 +299,26 @@ namespace Assets.Scripts.Interaction.Vacuum
         public void StopBlow()
         {
             ToggleBlow(false);
+        }
+
+        private void SetToDisable()
+        {
+            if (_blowPending)
+                _blowPending = false;
+            if (_suckPending)
+                _suckPending = false;
+            if (_effectsActive)
+            {
+                AudioBlowHandler(false);
+                AudioSuckHandler(false);
+                ToggleBlowEffects(false);
+                ToggleSuckEffects(false);
+                _effectsActive = false;
+            }
+            if (isBlowing)
+                isBlowing = false;
+            if (isSucking)
+                isSucking = false;
         }
 
         #endregion

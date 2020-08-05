@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float BlackFadeTime = 2f;
 
     public event Action levelEnd;
+    public event Action loadStarted;
     private Timer timer;
 
     // eatables and associated
@@ -58,7 +59,8 @@ public class LevelManager : MonoBehaviour
     {
         timer.PauseTimer();
         endLevelScreen.SetActive(true);
-        levelEnd.Invoke();
+        if(levelEnd != null)
+            levelEnd.Invoke();
     }
 
     public void LoadNextLevel()
@@ -134,8 +136,21 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadSceneAfterDelay(float delay, int sceneBuildIndex)
     {
+        if(loadStarted != null)
+        {
+            loadStarted.Invoke();
+        }
         yield return new WaitForSeconds(delay);
 
         SceneManager.LoadScene(sceneBuildIndex);
+    }
+
+    private void OnDisable()
+    {
+        if (vacuumSource != null)
+            vacuumSource.eatEvent -= OnEatObject;
+
+        timer.TimerReachedZero -= DisplayEndLevelScreen;
+        allPercentEaten -= DisplayEndLevelScreen;
     }
 }
