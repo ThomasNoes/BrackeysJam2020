@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private float BlackFadeTime = 2f;
 
+    public event Action levelEnd;
     private Timer timer;
 
     // eatables and associated
@@ -28,15 +29,15 @@ public class LevelManager : MonoBehaviour
     private VacuumSource vacuumSource;
     private int objectsEaten;
     private List<IEatable> eatables = new List<IEatable>();
-    private float percentCleaned;
 
     private void Start()
     {
         initialize();
         Fade(0, BlackFadeTime);
-        timer.TimerReachedZero += DisplayEndLevelScreen;
         if(vacuumSource != null)
             vacuumSource.eatEvent += OnEatObject;
+
+        timer.TimerReachedZero += DisplayEndLevelScreen;
         allPercentEaten += DisplayEndLevelScreen;
     }
 
@@ -57,6 +58,7 @@ public class LevelManager : MonoBehaviour
     {
         timer.PauseTimer();
         endLevelScreen.SetActive(true);
+        levelEnd.Invoke();
     }
 
     public void LoadNextLevel()
