@@ -23,6 +23,8 @@ public class TopDownMovement : MonoBehaviour
 
     private Vector3 previousRotationInput = Vector3.zero;
 
+    private Vector3 LastestLookRotation;
+
     private void Awake()
     {
         inputActions = new PlayerControls();
@@ -35,8 +37,8 @@ public class TopDownMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        transform.rotation = Quaternion.LookRotation(calculateOrientation());
+        LastestLookRotation = calculateOrientation();
+        transform.rotation = Quaternion.LookRotation(LastestLookRotation);
         rb.AddForce(calculateMovement() * Time.fixedDeltaTime, ForceMode.VelocityChange);
     }
     private Vector3 calculateMovement()
@@ -76,7 +78,6 @@ public class TopDownMovement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(camRay, out hit, Mathf.Infinity, groundMask))
             {
-                Debug.Log("enter");
                 mousePos.z = hit.distance;
                 Vector3 playerToMouse = hit.point - transform.position;
                 playerToMouse.y = 0;// transform.position.y;
@@ -90,7 +91,16 @@ public class TopDownMovement : MonoBehaviour
             }
         }
 
-        return desiredLookPoint;
+        //check if there was an input
+        if (desiredLookPoint.magnitude !=0)
+        {
+            return desiredLookPoint;
+        }
+        else
+        {
+            return LastestLookRotation;
+        }
+
     }
 
     string GetCurrentControlscheme()
