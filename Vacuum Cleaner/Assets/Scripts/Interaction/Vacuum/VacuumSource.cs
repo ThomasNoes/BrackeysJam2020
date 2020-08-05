@@ -3,7 +3,6 @@ namespace Assets.Scripts.Interaction.Vacuum
 {
     using System;
     using UnityEngine;
-    using System.Collections;
     using System.Collections.Generic;
     using Assets.Scripts.Audio;
     using Assets.Scripts.Input;
@@ -18,11 +17,9 @@ namespace Assets.Scripts.Interaction.Vacuum
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
         [Tooltip("In meters. The distance between the vacuum source and object to suck it into the machine")] public float eatDistance = 0.8f;
-        public List<GameObject> eatenObjects; // Public for testing purposes, make private later
 
         [Space]public GameObject suckParticle;
-        public GameObject blowParticle;
-        public GameObject vacuumParticle;
+        public GameObject blowParticle, vacuumParticle;
 
         // Ref for components:
         public GameObject audioComponentObject;
@@ -33,8 +30,11 @@ namespace Assets.Scripts.Interaction.Vacuum
         // Private:
         private SphereCollider _interactionSphere;
         private int _layerMask;
+        private bool _suckPending, _blowPending, _effectsActive;
         private IAudio _audioComponent;
+        private List<GameObject> _eatenObjects;
 
+        #region Start & Initiate
 
         private void Start()
         {
@@ -55,13 +55,18 @@ namespace Assets.Scripts.Interaction.Vacuum
             if (audioComponentObject != null)
                 _audioComponent = audioComponentObject.GetComponent<IAudio>();
 
-            eatenObjects = new List<GameObject>();
+            _eatenObjects = new List<GameObject>();
         }
+
+        #endregion
 
         private void OnTriggerStay(Collider col)
         {
             if (!powered)
+            {
+                SetToDisable();
                 return;
+            }
 
             if (isSucking)
                 DoSuck(col.gameObject);
@@ -71,6 +76,8 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         private void ToggleSuck(bool isOn)
         {
+            _suckPending = isOn;
+
             if (isBlowing)
                 return;
 
@@ -80,27 +87,37 @@ namespace Assets.Scripts.Interaction.Vacuum
             if (!powered)
                 return;
 
-            suckParticle?.SetActive(isOn);
-            AudioSuckHandler(isOn);
-
+            ToggleSuckEffects(isOn);
             isSucking = isOn;
+
+            if (!isOn && _blowPending)
+            {
+                isBlowing = true;
+                ToggleBlowEffects(true);
+            }
         }
 
         private void ToggleBlow(bool isOn)
         {
+            _blowPending = isOn;
+
             if (isSucking)
                 return;
-
+            
             if (isOn)
                 _audioComponent?.Play(3);
 
             if (!powered)
                 return;
 
-            blowParticle?.SetActive(isOn);
-            AudioBlowHandler(isOn);
-
+            ToggleBlowEffects(isOn);
             isBlowing = isOn;
+
+            if (!isOn && _suckPending)
+            {
+                isSucking = true;
+                ToggleSuckEffects(true);
+            }
         }
 
         private void DoSuck(GameObject obj)
@@ -118,7 +135,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
                     if (tempObj != null)
                     {
-                        eatenObjects.Add(tempObj);
+                        _eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
                         _audioComponent.Play(4); // Play eat sound
                         eatEvent?.Invoke(); // Invoke eat event
@@ -181,6 +198,52 @@ namespace Assets.Scripts.Interaction.Vacuum
             return false;
         }
 
+        private void SetToDisable()
+        {
+            if (_blowPending)
+                _blowPending = false;
+            if (_suckPending)
+                _suckPending = false;
+            if (_effectsActive)
+            {
+                AudioBlowHandler(false);
+                AudioSuckHandler(false);
+                ToggleBlowEffects(false);
+                ToggleSuckEffects(false);
+                _effectsActive = false;
+            }
+            if (isBlowing)
+                isBlowing = false;
+            if (isSucking)
+                isSucking = false;
+        }
+
+        #region Effect Controllers
+
+        private void ToggleSuckEffects(bool isOn)
+        {
+            if (_effectsActive && isOn)
+                return;
+
+            suckParticle?.SetActive(isOn);
+            AudioSuckHandler(isOn);
+
+            _effectsActive = isOn;
+        }
+
+        private void ToggleBlowEffects(bool isOn)
+        {
+            if (_effectsActive && isOn)
+                return;
+
+            blowParticle?.SetActive(isOn);
+            AudioBlowHandler(isOn);
+
+            _effectsActive = isOn;
+        }
+
+        #endregion
+
         #region AudioHandlers
         private void AudioSuckHandler(bool toggle)
         {
@@ -210,6 +273,8 @@ namespace Assets.Scripts.Interaction.Vacuum
             }
         }
         #endregion
+
+        #region Control Functions
 
         public void PowerOn()
         {
@@ -242,5 +307,7 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             ToggleBlow(false);
         }
+
+        #endregion
     }
 }

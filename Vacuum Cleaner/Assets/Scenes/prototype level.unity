@@ -579,6 +579,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1355613024, guid: b4bf8ad8e7108fe4eb68448abdc4d171, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426756165100769836, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 426756165877719226, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -644,10 +653,50 @@ PrefabInstance:
       propertyPath: inspectorIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2182161605437622794, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: cordBase
+      value: 
+      objectReference: {fileID: 1622928210}
+    - target: {fileID: 2994593898384190162, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782101409764133776, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: maxLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165309994893536879, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_ConfiguredInWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165309994893536879, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_LinearLimitSpring.spring
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165309994893536879, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_LinearLimit.contactDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8163045990979565010, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339360778025018492, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339360778025018492, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4bf8ad8e7108fe4eb68448abdc4d171, type: 3}
@@ -1857,6 +1906,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1252014519}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1622928210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 300289000539258631, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+    type: 3}
+  m_PrefabInstance: {fileID: 631672108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1622928214 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8339360778025018492, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+    type: 3}
+  m_PrefabInstance: {fileID: 631672108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1766533632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1766533633}
+  m_Layer: 9
+  m_Name: Cord Visual start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1766533633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766533632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.23, z: -1.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1622928214}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1815949097
 GameObject:
