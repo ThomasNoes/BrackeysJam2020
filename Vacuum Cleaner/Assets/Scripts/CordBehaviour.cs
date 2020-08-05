@@ -47,6 +47,7 @@ public class CordBehaviour : MonoBehaviour
         if (isHooked)
         {
             RopeBendingCheck();
+            Debug.Log("current length: " + (rp[rp.Count - 1].transform.position - cordBase.transform.position).magnitude);
         }
     }
 
@@ -64,7 +65,6 @@ public class CordBehaviour : MonoBehaviour
 
     public void RopeBendingCheck()
     {
-        Debug.Log("ropePoints " + rp.Count);
         Vector3 newPoint = rp[rp.Count - 1].transform.position;
         Vector3 base2NewPoint = newPoint - cordBase.transform.position;
 
@@ -99,14 +99,12 @@ public class CordBehaviour : MonoBehaviour
 
     private void AddRopePoint(Vector3 point, Transform parent)
     {
-        Debug.Log("adding first point");
         transform.position = point;
         rp.Add(Instantiate(ropePoint, point, Quaternion.identity, parent));
         SetRemainingLength();
     }
     private void RemoveNewestRopePoint()
     {
-        Debug.Log("removing point");
         Destroy(rp[rp.Count - 1]);
         rp.Remove(rp[rp.Count - 1]);
         transform.position = rp[rp.Count - 1].transform.position;
@@ -115,7 +113,7 @@ public class CordBehaviour : MonoBehaviour
 
     private void SetRemainingLength()
     {
-        remainingLength = CurrentLength;
+        remainingLength = maxLength;
         for (int i = 1; i < rp.Count; i++)
         {
             remainingLength -= Vector3.Distance(rp[i - 1].transform.position, rp[i].transform.position);
@@ -127,7 +125,7 @@ public class CordBehaviour : MonoBehaviour
     {
         SoftJointLimit softJoint = joint.linearLimit;
         softJoint.limit = Lenght;
-
+        Debug.Log("remaining lenght:" + Lenght);
         return softJoint;
     }
 
