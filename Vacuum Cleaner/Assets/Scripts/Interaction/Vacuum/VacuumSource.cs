@@ -23,6 +23,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
         // Ref for components:
         public GameObject audioComponentObject;
+        public GameObject indicatorComponentObject;
 
         // Events
         public event Action eatEvent;
@@ -31,8 +32,11 @@ namespace Assets.Scripts.Interaction.Vacuum
         private SphereCollider _interactionSphere;
         private int _layerMask;
         private bool _suckPending, _blowPending, _effectsActive;
-        private IAudio _audioComponent;
         private List<GameObject> _eatenObjects;
+
+        // Interface refs:
+        private IAudio _audioComponent;
+        private IIndicator _indicator;
 
         #region Start & Initiate
 
@@ -54,6 +58,9 @@ namespace Assets.Scripts.Interaction.Vacuum
 
             if (audioComponentObject != null)
                 _audioComponent = audioComponentObject.GetComponent<IAudio>();
+
+            if (indicatorComponentObject != null)
+                _indicator = indicatorComponentObject.GetComponent<IIndicator>();
 
             _eatenObjects = new List<GameObject>();
         }
@@ -280,12 +287,14 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             powered = true;
             vacuumParticle?.SetActive(true);
+            _indicator?.IndicatorOn();
         }
 
         public void PowerOff()
         {
             powered = false;
             vacuumParticle?.SetActive(false);
+            _indicator?.IndicatorOff();
         }
 
         public void StartSuck()
