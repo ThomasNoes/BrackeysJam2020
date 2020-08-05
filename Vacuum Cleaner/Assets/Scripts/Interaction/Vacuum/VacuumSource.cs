@@ -12,7 +12,7 @@ namespace Assets.Scripts.Interaction.Vacuum
     {
         // Public:
         public bool powered = false, isSucking = false, isBlowing = false; // NOTE: These are currently public for testing purposes
-        [Range(5.0f, 200.0f)]public float vacuumPowerLevel = 100.0f;
+        [Range(5.0f, 1500.0f)]public float vacuumPowerLevel = 300.0f;
         [Tooltip("In meters")] public float minimumPower = 3.0f;
         [Tooltip("In degrees")] public float effectiveAngle = 95.0f;
         [Tooltip("In meters")] public float maximumDistance = 15.0f;
@@ -81,6 +81,8 @@ namespace Assets.Scripts.Interaction.Vacuum
                 DoBlow(col.gameObject);
         }
 
+        #region Toggle
+
         private void ToggleSuck(bool isOn)
         {
             _suckPending = isOn;
@@ -110,7 +112,7 @@ namespace Assets.Scripts.Interaction.Vacuum
 
             if (isSucking)
                 return;
-            
+
             if (isOn)
                 _audioComponent?.Play(3);
 
@@ -126,6 +128,8 @@ namespace Assets.Scripts.Interaction.Vacuum
                 ToggleSuckEffects(true);
             }
         }
+
+        #endregion
 
         private void DoSuck(GameObject obj)
         {
@@ -203,26 +207,6 @@ namespace Assets.Scripts.Interaction.Vacuum
             }
 
             return false;
-        }
-
-        private void SetToDisable()
-        {
-            if (_blowPending)
-                _blowPending = false;
-            if (_suckPending)
-                _suckPending = false;
-            if (_effectsActive)
-            {
-                AudioBlowHandler(false);
-                AudioSuckHandler(false);
-                ToggleBlowEffects(false);
-                ToggleSuckEffects(false);
-                _effectsActive = false;
-            }
-            if (isBlowing)
-                isBlowing = false;
-            if (isSucking)
-                isSucking = false;
         }
 
         #region Effect Controllers
@@ -315,6 +299,26 @@ namespace Assets.Scripts.Interaction.Vacuum
         public void StopBlow()
         {
             ToggleBlow(false);
+        }
+
+        private void SetToDisable()
+        {
+            if (_blowPending)
+                _blowPending = false;
+            if (_suckPending)
+                _suckPending = false;
+            if (_effectsActive)
+            {
+                AudioBlowHandler(false);
+                AudioSuckHandler(false);
+                ToggleBlowEffects(false);
+                ToggleSuckEffects(false);
+                _effectsActive = false;
+            }
+            if (isBlowing)
+                isBlowing = false;
+            if (isSucking)
+                isSucking = false;
         }
 
         #endregion
