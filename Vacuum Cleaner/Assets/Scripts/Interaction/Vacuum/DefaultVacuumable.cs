@@ -47,7 +47,6 @@
             if (!isEatable)
                 return null;
 
-            Debug.Log(gameObject + " was eaten");
             return gameObject;
         }
 

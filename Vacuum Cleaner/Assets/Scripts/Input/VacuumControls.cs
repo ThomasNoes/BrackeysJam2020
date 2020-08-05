@@ -16,9 +16,9 @@
         {
             _testComponent = GetComponent<IVacuumControls>();
             _inputActions.Player.Suck.started += ctx => _testComponent?.StartSuck();
-            _inputActions.Player.Suck.canceled += ctx => _testComponent?.StopSuck();
+            _inputActions.Player.Suck.performed += ctx => _testComponent?.StopSuck();
             _inputActions.Player.Blow.started += ctx => _testComponent?.StartBlow();
-            _inputActions.Player.Blow.canceled += ctx => _testComponent?.StopBlow();
+            _inputActions.Player.Blow.performed += ctx => _testComponent?.StopBlow();
         }
 
         private void OnEnable()
