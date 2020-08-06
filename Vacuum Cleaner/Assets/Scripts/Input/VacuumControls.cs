@@ -10,7 +10,7 @@
 
         private void Awake()
         {
-            _inputHandler = FindObjectOfType<InputHandler>();
+            _inputHandler = InputHandler.inputHandler;
             if (_inputHandler != null)
                 _inputActions = _inputHandler.GetPlayerControls();
         }

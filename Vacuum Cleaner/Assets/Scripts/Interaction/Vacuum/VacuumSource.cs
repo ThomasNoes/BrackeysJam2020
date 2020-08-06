@@ -147,7 +147,7 @@ namespace Assets.Scripts.Interaction.Vacuum
                     {
                         _eatenObjects.Add(tempObj);
                         tempObj.SetActive(false);
-                        _audioComponent.Play(4); // Play eat sound
+                        _audioComponent?.Play(4); // Play eat sound
                         eatEvent?.Invoke(); // Invoke eat event
                         return;
                     }

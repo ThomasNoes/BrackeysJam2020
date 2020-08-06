@@ -34,7 +34,7 @@ public class SocketBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputHandler = FindObjectOfType<InputHandler>();
+        inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)
             inputActions = inputHandler.GetPlayerControls();
 

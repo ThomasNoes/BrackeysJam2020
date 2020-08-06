@@ -29,7 +29,7 @@ public class TopDownMovement : MonoBehaviour
 
     private void Awake()
     {
-        inputHandler = FindObjectOfType<InputHandler>();
+        inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)
         {
             inputActions = inputHandler.GetPlayerControls();
