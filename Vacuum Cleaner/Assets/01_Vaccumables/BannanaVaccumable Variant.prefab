@@ -16,6 +16,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &8809960365568326236
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118926755605219083}
+  m_Material: {fileID: 13400000, guid: d8c3e66ed4b6daa429b202dc4a780135, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25311202
+  m_Center: {x: 0, y: 0.009565257, z: 0.021385126}
 --- !u!114 &5680133003107422345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,19 +44,6 @@ MonoBehaviour:
   isSuckable: 1
   isEatable: 1
   isBlowable: 1
---- !u!135 &8809960365568326236
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118926755605219083}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25311202
-  m_Center: {x: 0, y: 0.009565257, z: 0.021385126}
 --- !u!1001 &6120103971123579309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,17 +55,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BannanaVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1180137445707430, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4400008515522110, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.216805
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4400008515522110, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2116964
+      value: -2.256
       objectReference: {fileID: 0}
     - target: {fileID: 4400008515522110, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.8122573
+      value: 1.61
       objectReference: {fileID: 0}
     - target: {fileID: 4400008515522110, guid: 84cd279dfc9ea0a4b8564030182915fa, type: 3}
       propertyPath: m_LocalRotation.x

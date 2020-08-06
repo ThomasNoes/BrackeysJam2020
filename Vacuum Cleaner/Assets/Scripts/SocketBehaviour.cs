@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 using Assets.Scripts.Audio;
+using UnityEngine.InputSystem;
 using Assets.Scripts.Input;
 
 public class SocketBehaviour : MonoBehaviour
@@ -29,31 +31,32 @@ public class SocketBehaviour : MonoBehaviour
     private PlayerControls inputActions;
     private InputHandler inputHandler;
 
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
         inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)
             inputActions = inputHandler.GetPlayerControls();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         cb = GameObject.Find("CordHead").GetComponent<CordBehaviour>();
         vs = GameObject.Find("vaccum head").GetComponent<Assets.Scripts.Interaction.Vacuum.VacuumSource>();
         text = gameObject.GetComponentInChildren<TMP_Text>();
-        text.transform.rotation = Camera.main.transform.rotation;
+        //text.transform.rotation = Camera.main.transform.rotation;
         signifier.SetActive(false);
         audio = audioComponent.GetComponent<IAudio>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (interactable)
         {
-
-            if (!cb.GetIsHooked() && inputActions.Player.Fire.triggered)
+            if (inputActions.Player.Fire.triggered 
+                && !cb.GetIsHooked())
             {
                 AttachCord();
 

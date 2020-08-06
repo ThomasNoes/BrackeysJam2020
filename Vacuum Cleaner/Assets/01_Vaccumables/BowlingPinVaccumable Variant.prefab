@@ -42,17 +42,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowlingPinVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 144110, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6906934
+      value: 3.52
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13947034
+      value: -1.359
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.692373
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -88,16 +92,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.218271
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.218271
       objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.218271
       objectReference: {fileID: 0}
+    - target: {fileID: 64640046933892330, guid: 94147211148ab5a449bb861d39bd169f,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: d8c3e66ed4b6daa429b202dc4a780135,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
 --- !u!1 &1805961430383269342 stripped

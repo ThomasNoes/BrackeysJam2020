@@ -40,11 +40,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 172472, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_Name
-      value: PanVaccumable
+      value: PanVaccumable Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 172472, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.4140844
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -52,7 +56,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.4962268
+      value: 4.91
       objectReference: {fileID: 0}
     - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -86,7 +90,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.366176
+      objectReference: {fileID: 0}
+    - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.366176
+      objectReference: {fileID: 0}
+    - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.366176
+      objectReference: {fileID: 0}
+    - target: {fileID: 64893348955396320, guid: 9a1b88269765c9845b106c8f675af29a,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 93d052a83368f87449ec6a1954f77761,
+        type: 2}
+    m_RemovedComponents:
+    - {fileID: 64481560862365596, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
 --- !u!1 &5601532045576600164 stripped
 GameObject:
