@@ -79,7 +79,7 @@ public class CordBehaviour : MonoBehaviour
         if (rp.Count > 1) // if the rope is bending on some surface.
         {
             Vector3 base2PrevPoint = rp[rp.Count - 2].transform.position - cordBase.transform.position;
-            prevPointBlocked = Physics.Raycast(cordBase.transform.position, base2PrevPoint, base2PrevPoint.magnitude - 0.1f, layerMask);
+            prevPointBlocked = Physics.Raycast(cordBase.transform.position, base2PrevPoint, base2PrevPoint.magnitude - 0.2f, layerMask);
 
             if (!prevPointBlocked)
             {

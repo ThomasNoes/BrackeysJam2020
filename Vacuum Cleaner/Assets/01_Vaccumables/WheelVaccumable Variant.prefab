@@ -8,7 +8,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716217208968407820}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -40,11 +40,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 110174, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_Name
-      value: WheelVaccumable
+      value: WheelVaccumable Variant
       objectReference: {fileID: 0}
     - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.747431
+      value: 11.15
       objectReference: {fileID: 0}
     - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -52,7 +52,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5236421
+      value: -1.88
       objectReference: {fileID: 0}
     - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -86,6 +86,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 64506519458470350, guid: 02eae6cf7b6c5d040bae88762a05569e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: d8c3e66ed4b6daa429b202dc4a780135,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
 --- !u!1 &1716217208968407820 stripped
