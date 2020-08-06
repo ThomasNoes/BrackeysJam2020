@@ -40,19 +40,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1079592782461814, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_Name
-      value: DroneVaccumable
+      value: DroneVaccumable Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4020515202322554, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.580561
+      value: 3.81
       objectReference: {fileID: 0}
     - target: {fileID: 4020515202322554, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9027015
+      value: -1.804
       objectReference: {fileID: 0}
     - target: {fileID: 4020515202322554, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2794523
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4020515202322554, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_LocalRotation.x
@@ -86,6 +86,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64059654910487614, guid: 0b87aededde5f3345bc2ac6b21c0b5ac,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: d8c3e66ed4b6daa429b202dc4a780135,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
 --- !u!1 &8989765700640767661 stripped
