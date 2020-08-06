@@ -47,7 +47,7 @@ public class CordBehaviour : MonoBehaviour
         if (isHooked)
         {
             RopeBendingCheck();
-            Debug.Log("current length: " + (rp[rp.Count - 1].transform.position - cordBase.transform.position).magnitude);
+            //Debug.Log("current length: " + (rp[rp.Count - 1].transform.position - cordBase.transform.position).magnitude);
         }
     }
 
@@ -125,7 +125,7 @@ public class CordBehaviour : MonoBehaviour
     {
         SoftJointLimit softJoint = joint.linearLimit;
         softJoint.limit = Lenght;
-        Debug.Log("remaining lenght:" + Lenght);
+        //Debug.Log("remaining lenght:" + Lenght);
         return softJoint;
     }
 

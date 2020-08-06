@@ -31,7 +31,7 @@ public class SocketBehaviour : MonoBehaviour
 
     void Awake()
     {
-        inputHandler = FindObjectOfType<InputHandler>();
+        inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)
             inputActions = inputHandler.GetPlayerControls();
     }
