@@ -6,7 +6,7 @@
     public class RailVacuumable : MonoBehaviour, ISuckable, IBlowable
     {
         public Vector3 fromPos, toPos;
-        public float drag = 1.7f, mass = 0.5f;
+        public float drag = 1.7f, mass = 0.5f, interactionAngle = 40;
         public bool constrainLocalX, constrainLocalZ;
         public int railLayer = 13;
 
@@ -28,7 +28,7 @@
 
             gameObject.layer = railLayer;
 
-            InstantiateBrakes();
+            InstantiateRailObjs();
         }
 
         public void Suck(Vector3 suckSource, float suckForce)
@@ -40,7 +40,7 @@
             float fromScore = Vector3.Angle(dirToFrom, dirToVacuumSource);
             float toScore = Vector3.Angle(dirToTo, dirToVacuumSource);
 
-            if (fromScore == toScore)
+            if (fromScore > interactionAngle && toScore > interactionAngle)
                 return;
 
             if (fromScore < toScore)
@@ -58,7 +58,7 @@
             float fromScore = Vector3.Angle(dirToFrom, dirToVacuumSource);
             float toScore = Vector3.Angle(dirToTo, dirToVacuumSource);
 
-            if (fromScore == toScore)
+            if (fromScore > interactionAngle && toScore > interactionAngle)
                 return;
 
             if (fromScore > toScore)
@@ -89,7 +89,7 @@
             _rb.velocity = transform.TransformDirection(localVelocity);
         }
 
-        private void InstantiateBrakes()
+        private void InstantiateRailObjs()
         {
             GameObject parentObj;
 
@@ -104,6 +104,8 @@
 
             Instantiate(Resources.Load("Prefabs/Brake"), fromPos, Quaternion.identity, parentObj.transform);
             Instantiate(Resources.Load("Prefabs/Brake"), toPos, Quaternion.identity, parentObj.transform);
+            GameObject colObj = Instantiate(Resources.Load<GameObject>("Prefabs/RailCollider"), gameObject.transform.position, Quaternion.identity, parentObj.transform);
+            colObj.GetComponent<FollowParent>().customObj = gameObject;
         }
 
         [ExecuteInEditMode]
