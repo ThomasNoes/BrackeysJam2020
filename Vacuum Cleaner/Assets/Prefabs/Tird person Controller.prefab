@@ -861,7 +861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028359468835606997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.222, y: -0.47805393, z: 1.5}
+  m_LocalPosition: {x: 0.222, y: -0.741, z: 1.288}
   m_LocalScale: {x: 0.22914362, y: 0.7394105, z: 0.2291436}
   m_Children:
   - {fileID: 790550721}
@@ -902,7 +902,7 @@ MonoBehaviour:
   minimumPower: 5
   effectiveAngle: 90
   maximumDistance: 5
-  eatDistance: 0.8
+  eatDistance: 0.5
   suckParticle: {fileID: 14177820}
   blowParticle: {fileID: 790550720}
   vacuumParticle: {fileID: 1355613024}
