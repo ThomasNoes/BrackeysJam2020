@@ -6,7 +6,8 @@ using Assets.Scripts.Input;
 
 public class TopDownMovement : MonoBehaviour
 {
-    [Header("Assignables")]
+    [Header("Assignables")] [SerializeField]
+    private GameObject playerCharacter;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private string keyboardSchemeName = "KeyboardMouse";
     [SerializeField] private string gamepadSchemeName = "Gamepad";
@@ -22,6 +23,7 @@ public class TopDownMovement : MonoBehaviour
     private Vector2 movementInput;
     private Vector2 lookInput;
     private Rigidbody rb;
+    private IMove moveInterface;
 
     private Vector3 previousRotationInput = Vector3.zero;
 
@@ -29,6 +31,9 @@ public class TopDownMovement : MonoBehaviour
 
     private void Start()
     {
+        if (playerCharacter != null)
+            moveInterface = playerCharacter.GetComponent<IMove>();
+
         inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)
         {
@@ -36,6 +41,7 @@ public class TopDownMovement : MonoBehaviour
 
             inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
             inputActions.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+            inputActions.Player.Move.performed += ctx => ToggleMovementAnimation(ctx.ReadValue<Vector2>());
         }
 
         rb = GetComponent<Rigidbody>();
@@ -114,5 +120,17 @@ public class TopDownMovement : MonoBehaviour
     {
         string controlScheme = playerInput.currentControlScheme;
         return controlScheme;
+    }
+
+    private void ToggleMovementAnimation(Vector2 moveValue)
+    {
+        if (moveInterface == null)
+            return;
+
+        if (moveValue.x <= 0.1f && moveValue.y <= 0.1f
+            && moveValue.x >= -0.1f && moveValue.y >= -0.1f)
+            moveInterface.StopMoving();
+        else
+            moveInterface.StartMoving();
     }
 }
