@@ -898,11 +898,11 @@ MonoBehaviour:
   powered: 0
   isSucking: 0
   isBlowing: 0
-  vacuumPowerLevel: 250
+  vacuumPowerLevel: 300
   minimumPower: 5
   effectiveAngle: 90
   maximumDistance: 5
-  eatDistance: 0.5
+  eatDistance: 0.7
   suckParticle: {fileID: 14177820}
   blowParticle: {fileID: 790550720}
   vacuumParticle: {fileID: 1355613024}
