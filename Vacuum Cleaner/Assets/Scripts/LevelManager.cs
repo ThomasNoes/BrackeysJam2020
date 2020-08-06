@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Image silverStar;
     [SerializeField] private Image goldStar;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private ParticleSystem celebratoryParticles;
 
     [Header("Properties")]
     [SerializeField] private float blackFadeTime = 2f;
@@ -57,6 +58,13 @@ public class LevelManager : MonoBehaviour
 
         timer.TimerReachedZero += DisplayEndLevelScreen;
         allPercentEaten += DisplayEndLevelScreen;
+        //canvas.worldCamera = Camera.main;
+        //canvas.planeDistance = 30;
+    }
+
+    private void Update()
+    {
+        AllignTheStars();
     }
 
     private void initialize()
@@ -185,6 +193,8 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         CheckStarConditionsReached(successStarColor);
+        celebratoryParticles.Play();
+        Debug.Log("Particles were played");
     }
 
     private void AllignTheStars()
