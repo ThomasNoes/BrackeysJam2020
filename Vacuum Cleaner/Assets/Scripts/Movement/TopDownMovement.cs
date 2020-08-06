@@ -27,7 +27,7 @@ public class TopDownMovement : MonoBehaviour
 
     private Vector3 LastestLookRotation;
 
-    private void Awake()
+    private void Start()
     {
         inputHandler = InputHandler.inputHandler;
         if (inputHandler != null)

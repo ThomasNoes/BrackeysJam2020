@@ -237,29 +237,35 @@ namespace Assets.Scripts.Interaction.Vacuum
         #region AudioHandlers
         private void AudioSuckHandler(bool toggle)
         {
+            if (_audioComponent == null)
+                return;
+
             if (toggle)
             {
-                _audioComponent?.Play(0);
-                _audioComponent?.PlayWithDelay(1, 0.71f);
+                _audioComponent.Play(0);
+                _audioComponent.PlayWithDelay(1, 0.71f);
             }
             else
             {
-                _audioComponent?.Stop(1);
-                _audioComponent?.Play(2);
+                _audioComponent.Stop(1);
+                _audioComponent.Play(2);
             }
         }
 
         private void AudioBlowHandler(bool toggle)
         {
+            if (_audioComponent == null)
+                return;
+
             if (toggle)
             {
-                _audioComponent?.Play(5);
-                _audioComponent?.PlayWithDelay(6, 0.55f);
+                _audioComponent.Play(5);
+                _audioComponent.PlayWithDelay(6, 0.55f);
             }
             else
             {
-                _audioComponent?.Stop(6);
-                _audioComponent?.Play(7);
+                _audioComponent.Stop(6);
+                _audioComponent.Play(7);
             }
         }
         #endregion
