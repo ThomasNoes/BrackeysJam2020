@@ -690,7 +690,7 @@ MonoBehaviour:
   ropePoint: {fileID: 670255878068995222, guid: dcee3e5e0b9e29443b8bddb6d0559e52,
     type: 3}
   cordBase: {fileID: 300289000539258631}
-  maxLength: 20
+  maxLength: 10
   minLength: 1
   hookToBase: 0
 --- !u!114 &2182161605437622794
@@ -900,7 +900,7 @@ MonoBehaviour:
   vacuumPowerLevel: 100
   minimumPower: 5
   effectiveAngle: 90
-  maximumDistance: 16
+  maximumDistance: 3
   eatDistance: 0.8
   suckParticle: {fileID: 14177820}
   blowParticle: {fileID: 790550720}
@@ -1378,12 +1378,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a32bac5e893aba44c80633cec171a07f, type: 2}
+      objectReference: {fileID: 2100000, guid: 785bf22071c9d264fbec65f07afabb24, type: 2}
     - target: {fileID: 2502362661738755250, guid: 96da19efb9a8a034096cf47783373985,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: a32bac5e893aba44c80633cec171a07f, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2502362661738755251, guid: 96da19efb9a8a034096cf47783373985,
         type: 3}
       propertyPath: m_LocalPosition.x
