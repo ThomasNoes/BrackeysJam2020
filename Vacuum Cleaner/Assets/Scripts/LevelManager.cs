@@ -16,10 +16,21 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Image blackScreen;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI eatPercentText;
+    [SerializeField] private Slider completionSlider;
     [SerializeField] private int menuSceneBuildIndex = 0;
 
     [Header("Properties")]
-    [SerializeField] private float BlackFadeTime = 2f;
+    [SerializeField] private float blackFadeTime = 2f;
+    [Range(1, 100)]
+    [SerializeField] private float bronzeLevel = 30f;
+    [Range(1, 100)]
+    [SerializeField] private float silverLevel = 50f;
+    [Range(1, 100)]
+    [SerializeField] private float goldLevel = 70f;
+    [Range(0, 10)]
+    [SerializeField] private float sliderAnimationTime = 3f;
+
+
 
     public event Action levelEnd;
     public event Action loadStarted;
@@ -34,7 +45,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         initialize();
-        Fade(0, BlackFadeTime);
+        Fade(0, blackFadeTime);
         if(vacuumSource != null)
             vacuumSource.eatEvent += OnEatObject;
 
@@ -61,34 +72,35 @@ public class LevelManager : MonoBehaviour
         endLevelScreen.SetActive(true);
         if(levelEnd != null)
             levelEnd.Invoke();
+        UpdateSlider(completionSlider, sliderAnimationTime);
     }
 
     public void LoadNextLevel()
     {
-        Fade(1, BlackFadeTime);
+        Fade(1, blackFadeTime);
 
         int currentBuildingIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentBuildingIndex < SceneManager.sceneCountInBuildSettings - 1)
         {
-            StartCoroutine(LoadSceneAfterDelay(BlackFadeTime + .1f, currentBuildingIndex +1));
+            StartCoroutine(LoadSceneAfterDelay(blackFadeTime + .1f, currentBuildingIndex +1));
         }
         else
         {
-            StartCoroutine(LoadSceneAfterDelay(BlackFadeTime + .1f, 0));
+            StartCoroutine(LoadSceneAfterDelay(blackFadeTime + .1f, 0));
 
         }
     }
 
     public void RestartLevel() //re-loads level
     {
-        Fade(1, BlackFadeTime);
-        StartCoroutine(LoadSceneAfterDelay(BlackFadeTime + .1f, SceneManager.GetActiveScene().buildIndex));
+        Fade(1, blackFadeTime);
+        StartCoroutine(LoadSceneAfterDelay(blackFadeTime + .1f, SceneManager.GetActiveScene().buildIndex));
     }
 
     public void GoToMainMenu()
     {
-        Fade(1, BlackFadeTime);
-        StartCoroutine(LoadSceneAfterDelay(BlackFadeTime + .1f, menuSceneBuildIndex));
+        Fade(1, blackFadeTime);
+        StartCoroutine(LoadSceneAfterDelay(blackFadeTime + .1f, menuSceneBuildIndex));
     }
     private void Fade(float alphaTargetValue, float seconds)
     {
@@ -142,7 +154,29 @@ public class LevelManager : MonoBehaviour
         }
         yield return new WaitForSeconds(delay);
 
-        SceneManager.LoadScene(sceneBuildIndex);
+        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+    }
+
+    private void UpdateSlider(Slider slider, float animationTime)
+    {
+        slider.value = 0;
+        StartCoroutine(AnimateSliderUpdate(slider, animationTime, CalculatePercentageEatablesEaten()));
+    }
+
+    IEnumerator AnimateSliderUpdate(Slider slide, float seconds, float desiredPercent)
+    {
+        float lerpTime = 0f;
+        float lerpValue = 0f;
+        float targetValue = slide.maxValue / 100 * desiredPercent;
+
+        while(slide.value != targetValue)
+        {
+            //Debug.Log("Animating");
+            slide.value = Mathf.Lerp(slide.value, targetValue, lerpValue);
+            lerpTime += Time.deltaTime;
+            lerpValue = lerpTime / seconds;
+            yield return new WaitForSeconds(0);
+        }
     }
 
     private void OnDisable()
