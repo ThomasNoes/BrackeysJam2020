@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DroneVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1079592782461814, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4020515202322554, guid: 0b87aededde5f3345bc2ac6b21c0b5ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.81

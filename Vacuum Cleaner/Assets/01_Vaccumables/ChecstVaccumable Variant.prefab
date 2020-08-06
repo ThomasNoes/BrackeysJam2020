@@ -16,6 +16,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1466501165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2757597045332431153}
+  m_Material: {fileID: 13400000, guid: 93d052a83368f87449ec6a1954f77761, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2340128, y: 0.6941428, z: 0.6730183}
+  m_Center: {x: 0, y: 0.3470714, z: -0.0090481555}
 --- !u!114 &2875894914701933270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,19 +44,6 @@ MonoBehaviour:
   isSuckable: 1
   isEatable: 1
   isBlowable: 1
---- !u!65 &1466501165
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2757597045332431153}
-  m_Material: {fileID: 13400000, guid: 93d052a83368f87449ec6a1954f77761, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2340128, y: 0.6941428, z: 0.6730183}
-  m_Center: {x: 0, y: 0.3470714, z: -0.0090481555}
 --- !u!1001 &2757597045332555899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51,9 +51,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 133354, guid: 1c64fbe146825d4439e21d3a3c64b4fb, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 158026, guid: 1c64fbe146825d4439e21d3a3c64b4fb, type: 3}
       propertyPath: m_Name
       value: ChecstVaccumable Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 158026, guid: 1c64fbe146825d4439e21d3a3c64b4fb, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 473108, guid: 1c64fbe146825d4439e21d3a3c64b4fb, type: 3}
       propertyPath: m_LocalPosition.x

@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WheelVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 110174, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 485148, guid: 02eae6cf7b6c5d040bae88762a05569e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.15

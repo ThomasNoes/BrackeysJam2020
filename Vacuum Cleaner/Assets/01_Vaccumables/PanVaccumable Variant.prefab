@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PanVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 172472, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 447260, guid: 9a1b88269765c9845b106c8f675af29a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.38

@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlantVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1632137552401554, guid: 7de50d5a3b0d1c74bb541e18a0d30f0a, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4476114989293084, guid: 7de50d5a3b0d1c74bb541e18a0d30f0a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.27

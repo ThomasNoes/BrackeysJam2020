@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PizzaVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 152962, guid: eba1f7ece2536204bb30cc7ab64ae8bf, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 437920, guid: eba1f7ece2536204bb30cc7ab64ae8bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.05

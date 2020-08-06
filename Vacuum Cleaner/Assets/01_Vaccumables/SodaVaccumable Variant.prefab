@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SodaVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 129530, guid: 94ee31a3d58997f4788e26bcab5a03dc, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 465568, guid: 94ee31a3d58997f4788e26bcab5a03dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.42

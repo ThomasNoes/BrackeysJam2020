@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BushVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1023917202629980, guid: 49b9066be53e5314798b57987364d700, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4789724816070758, guid: 49b9066be53e5314798b57987364d700, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.06

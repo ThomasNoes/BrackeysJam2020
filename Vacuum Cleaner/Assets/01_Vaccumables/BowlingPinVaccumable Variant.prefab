@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowlingPinVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 144110, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 429584, guid: 94147211148ab5a449bb861d39bd169f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.52

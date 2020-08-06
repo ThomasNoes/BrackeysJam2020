@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheeseVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 178364, guid: 419d48a3ccca1474ab18ed62c87ead45, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 427328, guid: 419d48a3ccca1474ab18ed62c87ead45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.14

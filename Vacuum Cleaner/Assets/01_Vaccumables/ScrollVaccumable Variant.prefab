@@ -42,6 +42,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrollVaccumable Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 177912, guid: 72aa2efe8b551544cb5146ddebd8cfde, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 444824, guid: 72aa2efe8b551544cb5146ddebd8cfde, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.12
