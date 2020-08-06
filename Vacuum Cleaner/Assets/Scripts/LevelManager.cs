@@ -18,6 +18,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI eatPercentText;
     [SerializeField] private Slider completionSlider;
     [SerializeField] private int menuSceneBuildIndex = 0;
+    [SerializeField] private Image bronzeStar;
+    [SerializeField] private Image silverStar;
+    [SerializeField] private Image goldStar;
+    [SerializeField] private Canvas canvas;
 
     [Header("Properties")]
     [SerializeField] private float blackFadeTime = 2f;
@@ -29,6 +33,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float goldLevel = 70f;
     [Range(0, 10)]
     [SerializeField] private float sliderAnimationTime = 3f;
+    [ColorUsage(true,true)]
+    [SerializeField] private Color successStarColor;
 
 
 
@@ -73,6 +79,7 @@ public class LevelManager : MonoBehaviour
         if(levelEnd != null)
             levelEnd.Invoke();
         UpdateSlider(completionSlider, sliderAnimationTime);
+        AllignTheStars();
     }
 
     public void LoadNextLevel()
@@ -177,8 +184,48 @@ public class LevelManager : MonoBehaviour
             lerpValue = lerpTime / seconds;
             yield return new WaitForSeconds(0);
         }
+        CheckStarConditionsReached(successStarColor);
     }
 
+    private void AllignTheStars()
+    {
+        RectTransform sliderRect = completionSlider.transform.GetComponent<RectTransform>();
+        float sliderWidth = sliderRect.rect.width * canvas.scaleFactor;
+        float sliderheight = sliderRect.rect.height * canvas.scaleFactor;
+        Vector3 parentLeftPos = new Vector3(sliderRect.position.x - sliderWidth / 2, sliderRect.position.y - sliderheight/2, sliderRect.position.z);
+
+        float lowStarX = sliderWidth / 100 * bronzeLevel;
+        float midStarX = sliderWidth / 100 * silverLevel;
+        float highStarX = sliderWidth / 100 * goldLevel;
+
+        Vector3 brozePos = new Vector3(parentLeftPos.x + lowStarX, parentLeftPos.y, parentLeftPos.z);
+        Vector3 silverPos = new Vector3(parentLeftPos.x + midStarX, parentLeftPos.y, parentLeftPos.z);
+        Vector3 goldPos = new Vector3(parentLeftPos.x + highStarX, parentLeftPos.y, parentLeftPos.z);
+
+        bronzeStar.rectTransform.SetPositionAndRotation(brozePos, Quaternion.identity);
+        silverStar.rectTransform.SetPositionAndRotation(silverPos, Quaternion.identity);
+        goldStar.rectTransform.SetPositionAndRotation(goldPos, Quaternion.identity);
+    }
+
+    private void CheckStarConditionsReached(Color targetStarColor)
+    {
+        float percentEaten = CalculatePercentageEatablesEaten();
+        if(percentEaten >= bronzeLevel)
+        {
+            //TODO: display particple effect
+            bronzeStar.color = targetStarColor;
+        }
+        if(percentEaten >= silverLevel)
+        {
+            //TODO: display particple effect
+            silverStar.color = targetStarColor;
+        }
+        if(percentEaten >= goldLevel)
+        {
+            //TODO: display particple effect
+            goldStar.color = targetStarColor;
+        }
+    }
     private void OnDisable()
     {
         if (vacuumSource != null)
