@@ -49,7 +49,6 @@ namespace Assets.Scripts.Interaction.Vacuum
         {
             _interactionSphere = GetComponent<SphereCollider>();
             _interactionSphere.isTrigger = true;
-            _interactionSphere.center = transform.position;
             _interactionSphere.radius = maximumDistance;
 
             _layerMask = LayerMask.GetMask("Player");

@@ -845,7 +845,7 @@ GameObject:
   - component: {fileID: 1582416126947382727}
   - component: {fileID: 4172139002945871622}
   - component: {fileID: 4521088575676887978}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: vaccum head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,10 +897,10 @@ MonoBehaviour:
   powered: 0
   isSucking: 0
   isBlowing: 0
-  vacuumPowerLevel: 100
+  vacuumPowerLevel: 250
   minimumPower: 5
   effectiveAngle: 90
-  maximumDistance: 3
+  maximumDistance: 5
   eatDistance: 0.8
   suckParticle: {fileID: 14177820}
   blowParticle: {fileID: 790550720}
