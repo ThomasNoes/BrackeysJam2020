@@ -17,9 +17,11 @@ public class Timer : MonoBehaviour
 
     private float _currentTime;
     public event Action TimerReachedZero;
+    private bool InvokedZeroEvent = false;
 
     private void Start()
     {
+        InvokedZeroEvent = false;
         _currentTime = startTime;
         switch (timerType)
         {
@@ -39,9 +41,10 @@ public class Timer : MonoBehaviour
     {
         if (stopOnZero)
         {
-            if (CheckTimerZero() && TimerReachedZero != null)
+            if (CheckTimerZero() && !InvokedZeroEvent)
             {
                 TimerReachedZero?.Invoke();
+                InvokedZeroEvent = true;
                 return;
             }
         }

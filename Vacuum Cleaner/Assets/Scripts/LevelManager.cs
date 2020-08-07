@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Image silverStar;
     [SerializeField] private Image goldStar;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private ParticleSystem celebratoryParticles;
 
     [Header("Properties")]
     [SerializeField] private float blackFadeTime = 2f;
@@ -57,6 +58,8 @@ public class LevelManager : MonoBehaviour
 
         timer.TimerReachedZero += DisplayEndLevelScreen;
         allPercentEaten += DisplayEndLevelScreen;
+        //canvas.worldCamera = Camera.main;
+        //canvas.planeDistance = 30;
     }
 
     private void initialize()
@@ -185,14 +188,18 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         CheckStarConditionsReached(successStarColor);
+        celebratoryParticles.Play();
+        Debug.Log("Particles were played");
     }
 
     private void AllignTheStars()
     {
         RectTransform sliderRect = completionSlider.transform.GetComponent<RectTransform>();
-        float sliderWidth = sliderRect.rect.width * canvas.scaleFactor;
-        float sliderheight = sliderRect.rect.height * canvas.scaleFactor;
-        Vector3 parentLeftPos = new Vector3(sliderRect.position.x - sliderWidth / 2, sliderRect.position.y - sliderheight/2, sliderRect.position.z);
+        float sliderWidth = sliderRect.rect.size.x * canvas.scaleFactor;
+        float sliderheight = sliderRect.rect.size.y * canvas.scaleFactor;
+        //Debug.Log("Width = " + sliderWidth);
+        //Debug.Log("Height = " + sliderheight);
+        Vector3 parentLeftPos = new Vector3(sliderRect.position.x - (sliderWidth / 2), sliderRect.position.y - (sliderheight/2), sliderRect.position.z);
 
         float lowStarX = sliderWidth / 100 * bronzeLevel;
         float midStarX = sliderWidth / 100 * silverLevel;
@@ -212,17 +219,14 @@ public class LevelManager : MonoBehaviour
         float percentEaten = CalculatePercentageEatablesEaten();
         if(percentEaten >= bronzeLevel)
         {
-            //TODO: display particple effect
             bronzeStar.color = targetStarColor;
         }
         if(percentEaten >= silverLevel)
         {
-            //TODO: display particple effect
             silverStar.color = targetStarColor;
         }
         if(percentEaten >= goldLevel)
         {
-            //TODO: display particple effect
             goldStar.color = targetStarColor;
         }
     }
