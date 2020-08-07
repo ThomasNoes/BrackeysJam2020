@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startAnimationOnAttach: 0
+  ani: {fileID: 0}
   signifier: {fileID: 7370192030188391917}
   plugText: PLUG IN!
   unplugText: UNPLUG!
@@ -566,6 +567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74fdb55854d2414a981d4c097c27184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayGizmo: 1
+  yellowRadius: 10
+  blueRadius: 15.75
 --- !u!1 &7370192030188391917
 GameObject:
   m_ObjectHideFlags: 0
