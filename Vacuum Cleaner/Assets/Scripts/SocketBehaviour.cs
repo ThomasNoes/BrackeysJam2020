@@ -10,6 +10,8 @@ using Assets.Scripts.Input;
 public class SocketBehaviour : MonoBehaviour
 {
     public bool startAnimationOnAttach;
+    public Animator ani;
+
     bool interactable = false;
     public GameObject signifier;
 
@@ -82,9 +84,9 @@ public class SocketBehaviour : MonoBehaviour
         vs.PowerOn();
         UpdateText();
         audio.Play(0);
-        if (startAnimationOnAttach)
+        if (startAnimationOnAttach && ani !=null)
         {
-            GetComponentInParent<Animator>().enabled = true;
+            ani.enabled = true;
         }
     }
 

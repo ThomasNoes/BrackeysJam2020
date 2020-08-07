@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DrawGizmo : MonoBehaviour
 {
-    public bool displayGizmo;
-    public float yellowRadius;
-    public float blueRadius;
+    public bool displayGizmo = true;
+    public float yellowRadius = 10;
+    public float blueRadius = 15.75f;
     // Start is called before the first frame update
     void OnDrawGizmos()
     {
