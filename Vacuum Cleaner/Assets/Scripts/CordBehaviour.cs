@@ -28,6 +28,8 @@ public class CordBehaviour : MonoBehaviour
     bool prevPointBlocked;
     float remainingLength;
 
+    private SocketBehaviour sb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,8 @@ public class CordBehaviour : MonoBehaviour
         {
             RopeBendingCheck();
             //Debug.Log("current length: " + (rp[rp.Count - 1].transform.position - cordBase.transform.position).magnitude);
+            SetRemainingLength();
+            transform.position = rp[rp.Count - 1].transform.position;
         }
     }
 
@@ -118,6 +122,11 @@ public class CordBehaviour : MonoBehaviour
         {
             remainingLength -= Vector3.Distance(rp[i - 1].transform.position, rp[i].transform.position);
         }
+        Debug.Log("remain: "+remainingLength);
+        if (remainingLength < 0.1)
+        {
+            sb.DetachCord();
+        }
         joint.linearLimit = SetLinearLimit(joint, remainingLength);
     }
 
@@ -151,8 +160,9 @@ public class CordBehaviour : MonoBehaviour
         }
     }
 
-    public void AttachToSocket(GameObject socket)
+    public void AttachToSocket(GameObject socket, SocketBehaviour sb)
     {
+        this.sb = sb;
         CurrentLength = maxLength; //(socket.transform.position - cordBase.transform.position).magnitude;
         AddRopePoint(socket.transform.position, socket.transform);
         transform.SetParent(socket.transform);

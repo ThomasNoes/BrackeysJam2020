@@ -9,6 +9,7 @@ using Assets.Scripts.Input;
 
 public class SocketBehaviour : MonoBehaviour
 {
+    public bool startAnimationOnAttach;
     bool interactable = false;
     public GameObject signifier;
 
@@ -76,14 +77,18 @@ public class SocketBehaviour : MonoBehaviour
     private void AttachCord()
     {
         Debug.Log("ATTACH!");
-        cb.AttachToSocket(gameObject);
+        cb.AttachToSocket(gameObject, this);
         cordAttached = true;
         vs.PowerOn();
         UpdateText();
         audio.Play(0);
+        if (startAnimationOnAttach)
+        {
+            GetComponentInParent<Animator>().enabled = true;
+        }
     }
 
-    private void DetachCord()
+    public void DetachCord()
     {
         Debug.Log("DETACH!");
         cb.ResetHook();
