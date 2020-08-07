@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 5492121508465493807}
   - component: {fileID: 5492121508465493804}
   - component: {fileID: 5492121508465493800}
+  - component: {fileID: 512368718282497352}
   m_Layer: 10
   m_Name: Socket
   m_TagString: Untagged
@@ -546,12 +547,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d63b9041c66b746890914ee2fde263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startAnimationOnAttach: 0
   signifier: {fileID: 7370192030188391917}
   plugText: PLUG IN!
   unplugText: UNPLUG!
   tangleCordText: X
   missingCordText: MISSING!
   audioComponent: {fileID: 1928129183}
+--- !u!114 &512368718282497352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492121508465493805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74fdb55854d2414a981d4c097c27184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7370192030188391917
 GameObject:
   m_ObjectHideFlags: 0
