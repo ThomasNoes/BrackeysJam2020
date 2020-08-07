@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5374875323770786946}
   - component: {fileID: 3763413594021579677}
   - component: {fileID: 2291092516758795582}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CelebrationExplosionParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
