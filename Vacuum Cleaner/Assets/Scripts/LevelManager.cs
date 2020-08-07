@@ -42,12 +42,13 @@ public class LevelManager : MonoBehaviour
     public event Action levelEnd;
     public event Action loadStarted;
     private Timer timer;
+    private bool hasEatenAll = false;
 
     // eatables and associated
     public event Action allPercentEaten;
     private VacuumSource vacuumSource;
     private int objectsEaten;
-    private List<IEatable> eatables = new List<IEatable>();
+    private int amountOfEatables = 0;
 
     private void Start()
     {
@@ -56,16 +57,16 @@ public class LevelManager : MonoBehaviour
         if(vacuumSource != null)
             vacuumSource.eatEvent += OnEatObject;
 
+        hasEatenAll = false;
         timer.TimerReachedZero += DisplayEndLevelScreen;
         allPercentEaten += DisplayEndLevelScreen;
-        //canvas.worldCamera = Camera.main;
-        //canvas.planeDistance = 30;
+
     }
 
     private void initialize()
     {
         vacuumSource = FindObjectOfType<VacuumSource>();
-        eatables = FindAllEatables();
+        amountOfEatables = FindAllEatables();
         timer = GetComponent<Timer>();
         objectsEaten = 0;
         UpdatePercentEaten(eatPercentText, 0);
@@ -78,11 +79,14 @@ public class LevelManager : MonoBehaviour
     private void DisplayEndLevelScreen()
     {
         timer.PauseTimer();
-        endLevelScreen.SetActive(true);
+        if(!endLevelScreen.activeInHierarchy)
+            endLevelScreen.SetActive(true);
         if(levelEnd != null)
             levelEnd.Invoke();
-        UpdateSlider(completionSlider, sliderAnimationTime);
         AllignTheStars();
+        UpdateSlider(completionSlider, sliderAnimationTime);
+        celebratoryParticles.Play();
+        Debug.Log("Particles were played");
     }
 
     public void LoadNextLevel()
@@ -117,7 +121,7 @@ public class LevelManager : MonoBehaviour
         blackScreen.CrossFadeAlpha(alphaTargetValue, seconds, true);
     }
 
-    private List<IEatable> FindAllEatables()
+    private int FindAllEatables()
     {
         List<IEatable> objects = new List<IEatable>();
         
@@ -126,14 +130,14 @@ public class LevelManager : MonoBehaviour
         {
             objects.Add(eatable);
         }
-        return objects;
+        return objects.Count;
     }
 
     private float CalculatePercentageEatablesEaten()
     {
-        float percent = (float)objectsEaten / eatables.Count * 100;
+        float percent = (float)objectsEaten / amountOfEatables * 100;
 
-        if(percent == 100)
+        if(percent == 100 && !hasEatenAll)
         {
             allPercentEaten.Invoke();
         }
@@ -188,8 +192,7 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         CheckStarConditionsReached(successStarColor);
-        celebratoryParticles.Play();
-        Debug.Log("Particles were played");
+        
     }
 
     private void AllignTheStars()
