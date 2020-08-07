@@ -251,6 +251,26 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4216554804560204585, guid: b51119f7dd4c76d4b9f6c9cd62924baa,
+        type: 3}
+      propertyPath: celebratoryParticles
+      value: 
+      objectReference: {fileID: 1645997855}
+    - target: {fileID: 4216554804560204585, guid: b51119f7dd4c76d4b9f6c9cd62924baa,
+        type: 3}
+      propertyPath: goldLevel
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216554804560204585, guid: b51119f7dd4c76d4b9f6c9cd62924baa,
+        type: 3}
+      propertyPath: silverLevel
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216554804560204585, guid: b51119f7dd4c76d4b9f6c9cd62924baa,
+        type: 3}
+      propertyPath: bronzeLevel
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 4216554804560204586, guid: b51119f7dd4c76d4b9f6c9cd62924baa,
         type: 3}
       propertyPath: startTime
@@ -2188,6 +2208,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4bf8ad8e7108fe4eb68448abdc4d171, type: 3}
+--- !u!198 &1645997855 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1147413071568049549, guid: b4bf8ad8e7108fe4eb68448abdc4d171,
+    type: 3}
+  m_PrefabInstance: {fileID: 1645997854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1724119706
 PrefabInstance:
   m_ObjectHideFlags: 0

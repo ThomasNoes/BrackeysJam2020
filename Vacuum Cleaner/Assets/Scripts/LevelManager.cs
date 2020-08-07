@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
     public event Action allPercentEaten;
     private VacuumSource vacuumSource;
     private int objectsEaten;
-    private List<IEatable> eatables = new List<IEatable>();
+    private int amountOfEatables = 0;
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class LevelManager : MonoBehaviour
     private void initialize()
     {
         vacuumSource = FindObjectOfType<VacuumSource>();
-        eatables = FindAllEatables();
+        amountOfEatables = FindAllEatables();
         timer = GetComponent<Timer>();
         objectsEaten = 0;
         UpdatePercentEaten(eatPercentText, 0);
@@ -82,9 +82,11 @@ public class LevelManager : MonoBehaviour
         if(!endLevelScreen.activeInHierarchy)
             endLevelScreen.SetActive(true);
         if(levelEnd != null)
-            //levelEnd.Invoke();
+            levelEnd.Invoke();
         AllignTheStars();
         UpdateSlider(completionSlider, sliderAnimationTime);
+        celebratoryParticles.Play();
+        Debug.Log("Particles were played");
     }
 
     public void LoadNextLevel()
@@ -119,7 +121,7 @@ public class LevelManager : MonoBehaviour
         blackScreen.CrossFadeAlpha(alphaTargetValue, seconds, true);
     }
 
-    private List<IEatable> FindAllEatables()
+    private int FindAllEatables()
     {
         List<IEatable> objects = new List<IEatable>();
         
@@ -128,12 +130,12 @@ public class LevelManager : MonoBehaviour
         {
             objects.Add(eatable);
         }
-        return objects;
+        return objects.Count;
     }
 
     private float CalculatePercentageEatablesEaten()
     {
-        float percent = (float)objectsEaten / eatables.Count * 100;
+        float percent = (float)objectsEaten / amountOfEatables * 100;
 
         if(percent == 100 && !hasEatenAll)
         {
@@ -190,8 +192,7 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         CheckStarConditionsReached(successStarColor);
-        celebratoryParticles.Play();
-        Debug.Log("Particles were played");
+        
     }
 
     private void AllignTheStars()
