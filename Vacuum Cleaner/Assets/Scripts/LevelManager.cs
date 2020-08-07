@@ -139,7 +139,9 @@ public class LevelManager : MonoBehaviour
 
         if(percent == 100 && !hasEatenAll)
         {
-            allPercentEaten.Invoke();
+            Debug.Log("all eaten");
+            hasEatenAll = true;
+            allPercentEaten?.Invoke();
         }
         return percent;
     }
