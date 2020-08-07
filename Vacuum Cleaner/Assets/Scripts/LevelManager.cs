@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     public event Action levelEnd;
     public event Action loadStarted;
     private Timer timer;
+    private bool hasEatenAll = false;
 
     // eatables and associated
     public event Action allPercentEaten;
@@ -56,10 +57,10 @@ public class LevelManager : MonoBehaviour
         if(vacuumSource != null)
             vacuumSource.eatEvent += OnEatObject;
 
+        hasEatenAll = false;
         timer.TimerReachedZero += DisplayEndLevelScreen;
         allPercentEaten += DisplayEndLevelScreen;
-        //canvas.worldCamera = Camera.main;
-        //canvas.planeDistance = 30;
+
     }
 
     private void initialize()
@@ -78,11 +79,12 @@ public class LevelManager : MonoBehaviour
     private void DisplayEndLevelScreen()
     {
         timer.PauseTimer();
-        endLevelScreen.SetActive(true);
+        if(!endLevelScreen.activeInHierarchy)
+            endLevelScreen.SetActive(true);
         if(levelEnd != null)
-            levelEnd.Invoke();
-        UpdateSlider(completionSlider, sliderAnimationTime);
+            //levelEnd.Invoke();
         AllignTheStars();
+        UpdateSlider(completionSlider, sliderAnimationTime);
     }
 
     public void LoadNextLevel()
@@ -133,7 +135,7 @@ public class LevelManager : MonoBehaviour
     {
         float percent = (float)objectsEaten / eatables.Count * 100;
 
-        if(percent == 100)
+        if(percent == 100 && !hasEatenAll)
         {
             allPercentEaten.Invoke();
         }
