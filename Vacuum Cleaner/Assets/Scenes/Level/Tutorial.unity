@@ -1549,7 +1549,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Keyboard
 
-    Right Click'
+    Left Click'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -50.012714}
   m_textInfo:
     textComponent: {fileID: 332001532}
-    characterCount: 20
+    characterCount: 19
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
@@ -4791,7 +4791,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Gamepad
 
-    Left Trigger'
+    Right Trigger'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4857,10 +4857,10 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -50.012714}
+  m_margin: {x: 0, y: 0, z: -38.139626, w: -50.012714}
   m_textInfo:
     textComponent: {fileID: 1948697641}
-    characterCount: 20
+    characterCount: 21
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
