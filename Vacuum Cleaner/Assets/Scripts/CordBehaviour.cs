@@ -122,7 +122,7 @@ public class CordBehaviour : MonoBehaviour
         {
             remainingLength -= Vector3.Distance(rp[i - 1].transform.position, rp[i].transform.position);
         }
-        Debug.Log("remain: "+remainingLength);
+        //Debug.Log("remain: "+remainingLength);
         if (remainingLength < 0.1)
         {
             sb.DetachCord();
@@ -175,7 +175,7 @@ public class CordBehaviour : MonoBehaviour
         if (shotBool) //if the ray cast did hit something,
         {
             CurrentLength = (shotHit.point - cordBase.transform.position).magnitude;
-            Debug.Log("Shot distance: " + shotHit.distance);
+            //Debug.Log("Shot distance: " + shotHit.distance);
             AddRopePoint(shotHit.point, shotHit.transform); //move hook to hit point
             transform.SetParent(shotHit.transform); // set the object that was hit as a parent
             isHooked = true;

@@ -78,7 +78,7 @@ public class SocketBehaviour : MonoBehaviour
 
     private void AttachCord()
     {
-        Debug.Log("ATTACH!");
+        //Debug.Log("ATTACH!");
         cb.AttachToSocket(gameObject, this);
         cordAttached = true;
         vs.PowerOn();
@@ -92,7 +92,7 @@ public class SocketBehaviour : MonoBehaviour
 
     public void DetachCord()
     {
-        Debug.Log("DETACH!");
+        //Debug.Log("DETACH!");
         cb.ResetHook();
         cordAttached = false;
         vs.PowerOff();

@@ -181,6 +181,8 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator AnimateSliderUpdate(Slider slide, float seconds, float desiredPercent)
     {
+        yield return new WaitForSeconds(1f); //wait for end screen pop in animation
+        Debug.Log("Start slider animation");
         float lerpTime = 0f;
         float lerpValue = 0f;
         float targetValue = slide.maxValue / 100 * desiredPercent;
@@ -194,6 +196,7 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         CheckStarConditionsReached(successStarColor);
+        Debug.Log("end slider animation");
         
     }
 

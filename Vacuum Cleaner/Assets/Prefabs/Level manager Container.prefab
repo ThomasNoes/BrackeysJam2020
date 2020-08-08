@@ -1118,8 +1118,8 @@ MonoBehaviour:
   celebratoryParticles: {fileID: 0}
   blackFadeTime: 2
   bronzeLevel: 30
-  silverLevel: 50
-  goldLevel: 70
+  silverLevel: 55
+  goldLevel: 90
   sliderAnimationTime: 3
   successStarColor: {r: 8, g: 3.6392157, b: 0, a: 1}
 --- !u!114 &4216554804560204586
