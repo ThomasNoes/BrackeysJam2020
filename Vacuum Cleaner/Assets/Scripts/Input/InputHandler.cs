@@ -17,8 +17,8 @@
             {
                 Destroy(this);
             }
+
             playerControls = new PlayerControls();
-            // DontDestroyOnLoad(this);
         }
 
         public PlayerControls GetPlayerControls()

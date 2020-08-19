@@ -70,7 +70,6 @@
         private void FixedUpdate()
         {
             LocalConstraining();
-
         }
 
         private void LocalConstraining()
@@ -104,6 +103,7 @@
 
             Instantiate(Resources.Load("Prefabs/Brake"), fromPos, Quaternion.identity, parentObj.transform);
             Instantiate(Resources.Load("Prefabs/Brake"), toPos, Quaternion.identity, parentObj.transform);
+
             GameObject colObj = Instantiate(Resources.Load<GameObject>("Prefabs/RailCollider"), gameObject.transform.position, gameObject.transform.rotation, parentObj.transform);
             colObj.GetComponent<FollowParent>().customObj = gameObject;
         }

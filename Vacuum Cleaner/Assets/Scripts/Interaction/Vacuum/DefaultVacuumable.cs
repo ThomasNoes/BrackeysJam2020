@@ -35,7 +35,8 @@
             {
                 _thisRb.AddForce((_suckTo - transform.position).normalized * _suckForce * Time.smoothDeltaTime);
                 _isSucked = false;
-            } else if (_isBlown)
+            }
+            else if (_isBlown)
             {
                 _thisRb.AddForce((transform.position - _blowFrom).normalized * _blowForce * Time.smoothDeltaTime);
                 _isBlown = false;
@@ -47,6 +48,7 @@
             if (!isEatable)
                 return null;
 
+            Debug.Log(gameObject + " was eaten");
             return gameObject;
         }
 
