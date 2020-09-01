@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Socket
+  - Cord
   layers:
   - Default
   - TransparentFX
@@ -14,13 +16,13 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - RopeIgnore
+  - InputGround
+  - RailLayer
+  - RailObject
+  - VacuumHead
+  - Eatable
   - 
   - 
   - 
@@ -40,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 3961653047
     locked: 0

@@ -6,6 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Main Menu.unity
+    guid: aa32f7d73a5a515489ca137713102902
+  - enabled: 1
+    path: Assets/Scenes/Level/Tutorial.unity
+    guid: d9e2d6e40a3d7c8428c4f938f746129a
+  - enabled: 1
+    path: Assets/Scenes/Level/Switch Sockets.unity
+    guid: 6be06822c680b794381f9cda8660a678
+  - enabled: 1
+    path: Assets/Scenes/Level/Bending Rope.unity
+    guid: ff741fdb3dc3e9f4887005627862afea
+  - enabled: 1
+    path: Assets/Scenes/Level/moving socket.unity
+    guid: d3d7d53962f72a44d9a0ac51f945cbd2
+  - enabled: 1
+    path: Assets/Scenes/Level/Moving Obstacles.unity
+    guid: a0f1f7a2c715cb941be73ba02f5d0523
+  - enabled: 1
+    path: Assets/Scenes/Level/Rotating Pillars.unity
+    guid: 47e68fe26e250994191a3801788d27c3
+  - enabled: 1
+    path: Assets/Scenes/Level/Blow Tutorial.unity
+    guid: 2147eef4cd519c844999b2d316e66d56
   m_configObjects: {}
